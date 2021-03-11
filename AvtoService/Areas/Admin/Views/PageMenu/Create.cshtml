@@ -1,0 +1,93 @@
+﻿@model WebSite.Models.PageViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="page-layout simple left-sidebar-floating doc forms-doc">
+    <div class="page-header bg-primary text-auto row no-gutters align-items-center justify-content-between p-4 p-sm-6">
+        <div class="col">
+            <div class="row no-gutters align-items-center flex-nowrap">
+                <button type="button" class="sidebar-toggle-button btn btn-icon d-inline-block d-lg-none mr-2 fuse-ripple-ready" data-fuse-bar-toggle="contacts-sidebar">
+                    <i class="icon icon-menu"></i>
+                </button>
+                <!-- APP TITLE -->
+                <div class="logo row no-gutters align-items-center flex-nowrap">
+                    <span class="logo-icon mr-4">
+                        <i class="icon-account-box s-6"></i>
+                    </span>
+                    <span class="logo-text h4">@Localizer["Create page"]</span>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+    </div>
+    <div class="page-content-wrapper">
+        <div class="page-content p-4 p-sm-6">
+            <div class="content container">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="example">
+                            <div class="description">
+                                <div class="description-text">
+                                    <h5>@Localizer["Create page"]</h5>
+                                </div>
+                            </div>
+                            <div class="source-preview-wrapper">
+                                <div class="preview">
+                                    <div class="preview-elements">
+
+                                        <form asp-action="Create">
+
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-group" hidden="hidden">
+                                                <label asp-for="Id" class="control-label"></label>
+                                                <input asp-for="Id" class="form-control" />
+                                                <span asp-validation-for="Id" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label asp-for="Name" class="control-label"></label>
+                                                <input asp-for="Name" class="form-control" required="required" />
+                                                <span asp-validation-for="Name" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.EditorFor(_ => _.Content, "WysiwygTextarea")
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="MetaTitle" class="control-label"></label>
+                                                <input asp-for="MetaTitle" class="form-control" required="required" />
+                                                <span asp-validation-for="MetaTitle" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="MetaDescription" class="control-label"></label>
+                                                <input asp-for="MetaDescription" class="form-control" required="required" />
+                                                <span asp-validation-for="MetaDescription" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="MetaKeywords" class="control-label"></label>
+                                                <input asp-for="MetaKeywords" class="form-control" required="required" />
+                                                <span asp-validation-for="MetaKeywords" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="submit" value=@Localizer["Create"] class="btn btn-primary" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,101 @@
+﻿@model WebSite.Models.Navigation.MenuViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "MenuItems";
+}
+
+@*<h1>MenuItems</h1>*@
+<div class="content-wrapper">
+    <div class="content custom-scrollbar ps">
+
+        <div id="e-commerce-products" class="page-layout carded full-width">
+
+            <div class="top-bg bg-primary"></div>
+
+            <!-- CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- HEADER -->
+                <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+
+                    <!-- APP TITLE -->
+                    <div class="col-12 col-sm">
+
+                        <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+                            <div class="logo-icon mr-3 mt-1">
+                                <i class="icon-cube-outline s-6"></i>
+                            </div>
+                            <div class="logo-text">
+                                <div class="h4">@Localizer["Menu pages"]</div>
+                                @*<div class="">Total Products: 20</div>*@
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- / APP TITLE -->
+                    <!-- SEARCH -->
+                    <div class="col search-wrapper px-2">
+
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-icon fuse-ripple-ready">
+                                    <i class="icon icon-magnify"></i>
+                                </button>
+                            </span>
+                            <input id="products-search-input" type="text" class="form-control" placeholder=@Localizer["Search"] aria-label="Search">
+                        </div>
+
+                    </div>
+                    <!-- / SEARCH -->
+
+                    <div class="col-auto">
+                        <a asp-action="CreateMenuItem" asp-route-menuId="@Model?.Id" class="btn btn-light fuse-ripple-ready">@Localizer["Create menu page"]</a>
+                    </div>
+
+                </div>
+                <!-- / HEADER -->
+                @*<p>
+                        <a asp-action="CreateMenuItem" asp-route-menuId="@Model.Id">Create New</a>
+                    </p>*@
+
+                <div class="page-content-card">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td class="col-3">
+                                        <a class="text-decoration-none" asp-action="DetailsMenuItem" asp-route-Id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                                    </td>
+                                    <td class="col-4"></td>
+                                    <td class="col-2">
+                                        <a asp-action="EditMenuItem" asp-route-Id="@item.Id">@Localizer["Edit"]</a>
+                                        @*@Html.ActionLink("Edit", "EditMenuItem", new { Id = item.Id })*@
+                                    </td>
+                                    <td class="col-2">
+                                        <a asp-action="DeleteMenuItem" asp-route-Id="@item.Id">@Localizer["Delete"]</a>
+                                        @*@Html.ActionLink("Delete", "DeleteMenuItem", new { Id = item.Id })*@
+                                    </td>
+                                    <td class="col-1"></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿@model bool
+<div class="form-group">
+    <div class="form-check remember-me mb-4">
+        <label class="form-check-label">
+            @Html.CheckBoxFor(_ => _, new { @class = "form-check-input" })
+            <input type="checkbox" class="form-check-input" aria-label="@ViewData.ModelMetadata.DisplayName">
+            <span class="checkbox-icon fuse-ripple-ready"></span>
+            <span class="form-check-description">@ViewData.ModelMetadata.DisplayName</span>
+        </label>
+    </div>
+</div>

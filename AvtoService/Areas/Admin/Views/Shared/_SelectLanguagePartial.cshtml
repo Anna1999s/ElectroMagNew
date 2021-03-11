@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+<div title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
+    <form id="selectLanguage" asp-controller="Home"
+          asp-action="SetLanguage" asp-route-returnUrl="@returnUrl"
+          method="post" class="form-horizontal" role="form">    
+
+        <div class="language-button dropdown">
+
+            <div class="dropdown-toggle ripple row align-items-center justify-content-center no-gutters px-0 px-sm-4 fuse-ripple-ready" role="button" id="dropdownLanguageMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="row no-gutters align-items-center">
+                    <img class="flag mr-2" src="@("/assets/images/flags/" + requestCulture.RequestCulture.UICulture.Name + ".png")">
+                    <span class="d-none d-md-block">@requestCulture.RequestCulture.UICulture.DisplayName</span>
+                </div>
+            </div>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownLanguageMenu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 64px, 0px);">
+                @foreach (var item in cultureItems)
+                {
+                    <button name="culture" value="@item.Value" class="dropdown-item fuse-ripple-ready">
+                        <div class="row no-gutters align-items-center flex-nowrap">
+                            <img class="flag" src="@("/assets/images/flags/" + item.Value + ".png")">
+                            <span class="px-3">@item.Text</span>
+                        </div>
+                    </button>
+                }
+
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+

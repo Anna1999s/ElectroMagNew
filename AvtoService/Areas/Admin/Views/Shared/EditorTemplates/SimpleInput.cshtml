@@ -1,0 +1,6 @@
+﻿@model object
+    <div class="form-group">
+        @Html.TextBoxFor(_ => _, new { @class = "form-control", placeholder = ViewData.ModelMetadata.DisplayName })
+        @Html.LabelFor(_ => _)
+        @Html.ValidationMessageFor(_ => _)
+    </div>

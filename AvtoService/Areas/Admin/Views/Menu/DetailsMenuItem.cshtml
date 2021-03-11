@@ -1,0 +1,96 @@
+﻿@model WebSite.Models.Navigation.MenuItemViewModel
+
+@{
+    ViewData["Title"] = "DetailsMenuItem";
+}
+
+<h1>DetailsMenuItem</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2" hidden ="hidden">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10" hidden ="hidden">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StringKey)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StringKey)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order)
+        </dd>
+        <dt class="col-sm-2" hidden ="hidden">
+            @Html.DisplayNameFor(model => model.Controller)
+        </dt>
+        <dd class="col-sm-10" hidden ="hidden">
+            @Html.DisplayFor(model => model.Controller)
+        </dd>
+        <dt class="col-sm-2" hidden ="hidden">
+            @Html.DisplayNameFor(model => model.Action)
+        </dt>
+        <dd class="col-sm-10" hidden ="hidden">
+            @Html.DisplayFor(model => model.Action)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomUrl)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomUrl)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsHidden)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsHidden)
+        </dd>
+        <dt class="col-sm-2" hidden ="hidden">
+            @Html.DisplayNameFor(model => model.MenuId)
+        </dt>
+        <dd class="col-sm-10" hidden ="hidden">
+            @Html.DisplayFor(model => model.MenuId)
+        </dd>
+        <dt class="col-sm-2" hidden ="hidden">
+            @Html.DisplayNameFor(model => model.PageId)
+        </dt>
+        <dd class="col-sm-10" hidden ="hidden">
+            @Html.DisplayFor(model => model.PageId)
+        </dd>
+
+        <dd class="col-sm-10" hidden ="hidden">
+            @Html.DisplayFor(model => model.Page.Id)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Page.Name)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Page.MetaTitle)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Page.MetaDescription)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Page.MetaKeywords)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Page.Content)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "EditMenuItem", new { Id = Model.Id }) |
+    <a asp-action="MenuItems" asp-route-Id="@Model.MenuId">Back to List</a>
+</div>

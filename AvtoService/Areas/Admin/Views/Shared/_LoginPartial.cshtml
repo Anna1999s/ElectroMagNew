@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@inject IViewLocalizer Localizer
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <li class="nav-item">
+        <a class="nav-link text-dark" title="Manage">@Localizer["Hello {0}!", User.Identity.Name]</a>
+    </li>
+
+        <li class="nav-item">
+            <a class="nav-link btn btn-link text-dark" asp-controller="account" asp-action="Logout">@Localizer["Log off"]</a>
+        </li>
+
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="account" asp-action="Register">@Localizer["Register"]</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="account" asp-action="login">@Localizer["Log in"]</a>
+        </li>
+
+    }
+</ul>  

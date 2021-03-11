@@ -1,0 +1,6 @@
+﻿@model Microsoft.AspNetCore.Http.IFormFile
+<div class="form-group">
+    @Html.TextBoxFor(_ => _, new { type = "file", @class = "custom-file-input", placeholder = ViewData.ModelMetadata.DisplayName, multiple = "multiple" })
+    @Html.LabelFor(_ => _, new { @class = "custom-file-label"})
+    @Html.ValidationMessageFor(_ => _)
+</div>

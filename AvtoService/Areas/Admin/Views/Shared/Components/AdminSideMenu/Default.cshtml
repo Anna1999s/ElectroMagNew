@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebSite.Areas.Admin.Models.Common.MenuItemViewModel>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<aside id="aside" class="aside aside-left" data-fuse-bar="aside" data-fuse-bar-media-step="md" data-fuse-bar-position="left">
+    <div class="aside-content bg-primary-700 text-auto">
+
+        <div class="aside-toolbar">
+            <div class="logo">
+                <span class="logo-icon">Q</span>
+                <span class="logo-text">@Localizer["My profile"]</span>
+            </div>
+            <button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block" data-fuse-aside-toggle-fold>
+                <i class="icon icon-backburger"></i>
+            </button>
+        </div>
+
+        <ul class="nav flex-column custom-scrollbar" id="sidenav" data-children=".nav-item">
+
+            <li class="subheader">
+                <span>@Localizer["Pages"]</span>
+            </li>
+
+            @foreach (var item in Model)
+            {
+                if (item.Childs != null && item.Childs.Any())
+                {
+                    <li class="nav-item" role="tab">
+                        <a class="nav-link with-arrow collapsed" data-toggle="collapse" data-target="#menu_@item.Controller" href="#" aria-expanded="false" aria-controls="menu_@item.Controller">
+                            <i class="icon s-4 icon-tile-four"></i>
+                            <span>@item.Title</span>
+                        </a>
+                        <ul id="menu_@item.Controller" class="collapse" role="tabpanel" aria-labelledby="heading-dashboards" data-children=".nav-item">
+                            @foreach (var child in item.Childs)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="@child.Controller" asp-action="@child.Action">
+                                        <span>@child.Title</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="@item.Controller" asp-action="@item.Action">
+                            <i class="icon s-4 icon-calendar-today"></i>
+                            <span>@item.Title</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+
+    </div>
+
+</aside>

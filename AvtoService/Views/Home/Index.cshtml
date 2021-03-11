@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Home Page"];
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>@Localizer["Overview"]</h2>
+        <ul>
+            <li><a href="#">@Localizer["Conceptual overview of what is ASP.NET 5"]</a></li>
+            <li><a href="#">@Localizer["Fundamentals of ASP.NET 5 such as Startup and middleware."]</a></li>
+            <li><a href="#">@Localizer["Working with Data"]</a></li>
+            <li><a href="#">@Localizer["Security"]</a></li>
+            <li><a href="#">@Localizer["Client side development"]</a></li>
+            <li><a href="#">@Localizer["Develop on different platforms"]</a></li>
+            <li><a href="#">@Localizer["Read more on the documentation site"]</a></li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>@Localizer["Run & Deploy"]</h2>
+        <ul>
+            <li><a href="#">@Localizer["Run your app"]</a></li>
+            <li><a href="#">@Localizer["Run your app on .NET Core"]</a></li>
+            <li><a href="#">@Localizer["Run commands in your bash"]</a></li>
+            <li><a href="#">@Localizer["Publish to Microsoft Azure Web Apps"]</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model WebSite.Models.PageViewModel
+@{
+    ViewBag.Title = Model.MetaTitle;
+    ViewBag.Keywords = Model.MetaKeywords;
+    ViewBag.Description = Model.MetaDescription;
+}
+@*@section BefoEndHead
+{
+    <link href="~/Content/Page.css" rel="stylesheet" />
+}*@
+<div class="page grey-bg p-top-20 p-bot-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-offset-2 col-lg-8">
+                <div class="page-block">
+                    <div class="header text-center">
+                        <h1>@Model.Name</h1>
+                    </div>
+                    <div class="content">
+                        @Html.Raw(Model.Content)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

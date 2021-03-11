@@ -1,0 +1,6 @@
+﻿@model object
+<div class="form-group">
+    @Html.LabelFor(_ => _)
+    @Html.DropDownListFor(_ => _, (IEnumerable<SelectListItem>)ViewData["selectList"], "Выберите", new { @class = "form-control" })
+    @Html.ValidationMessageFor(_ => _)
+</div>
