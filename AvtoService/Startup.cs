@@ -1,5 +1,4 @@
 using DomainModel.Framework.Models;
-using Interfaces.Catalog;
 using Interfaces.Content;
 using Interfaces.Initializer;
 using Interfaces.Localization;
@@ -16,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Services;
-using Services.Catalog;
 using Services.Content;
 using Services.Initializer;
 using Services.Localization;
@@ -50,21 +48,8 @@ namespace WebSite
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IDbInitializer, DbInitializer>();
             services.AddTransient<IPageService, PageService>();
-            services.AddTransient<IVehicleService, VehicleService>();
-            services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IMenuItemService, MenuItemService>();
             services.AddTransient<IPhotoService, PhotoService>();
-
-            services.AddTransient<IVehicleTypeService, VehicleTypeService>();
-            services.AddTransient<IVehicleMarkService, VehicleMarkService>();
-            services.AddTransient<IVehicleModelService, VehicleModelService>();
-            services.AddTransient<ITransmissionTypeService, TransmissionTypeService>();
-            services.AddTransient<IFuelTypeService, FuelTypeService>();
-            services.AddTransient<IVehicleOptionService, VehicleOptionService>();
-            services.AddTransient<IVehicleColorService, VehicleColorService>();
-            services.AddTransient<ICountryService, CountryService>();
-            services.AddTransient<IDriveTypeService, DriveTypeService>();
-            services.AddTransient<IBodyTypeService, BodyTypeService>();
             services.AddTransient<IUserService, UserService>();
 
             services.Configure<GoogleTranslateConfig>(Configuration.GetSection("GoogleTranslateConfig"));
@@ -156,11 +141,7 @@ namespace WebSite
                 endpoints.MapControllerRoute(
                     "Admin",
                     "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-                endpoints.MapControllerRoute(
-                    "Seller",
-                    "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+                );                
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 

@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Catalog\VehicleSerie.cs" />
     <Compile Remove="Localization\LocalizedTransmissionType.cs" />
   </ItemGroup>
 

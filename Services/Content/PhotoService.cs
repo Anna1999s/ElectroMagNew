@@ -31,7 +31,6 @@ namespace Services.Content
             var entity = new Photo
             {
                 Path = @"\" + fileName,
-                VehicleId = vehicleId
             };
             await _dbContext.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
@@ -49,7 +48,6 @@ namespace Services.Content
             var entity = new Photo
             {
                 Path = @"\" + fileName,
-                VehicleId = vehicleId
             };
             await _dbContext.AddAsync(entity);
             await _dbContext.SaveChangesAsync();

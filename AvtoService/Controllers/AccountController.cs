@@ -15,13 +15,11 @@ namespace WebSite.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly IChatService _chatService;
         public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,IChatService chatService)
+            SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _chatService = chatService;
         }
         [HttpGet, AllowAnonymous]
         public IActionResult Register()
