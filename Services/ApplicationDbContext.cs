@@ -12,42 +12,16 @@ namespace Services
             : base(options)
         {
         }
-
-        //public DbSet<Message> Messages { get; set; }
-        //public DbSet<Attachment> Attachments { get; set; }
-        //public DbSet<Currency> Currencies { get; set; }
-        //public DbSet<Vehicle> Vehicles { get; set; }
+              
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Page> Pages { get; set; }
 
-        //#region Content
-
-        //public DbSet<VehicleType> VehicleTypes { get; set; }
-        //public DbSet<VehicleMark> VehicleMarks { get; set; }
-        //public DbSet<VehicleModel> VehicleModels { get; set; }
-        //public DbSet<VehicleOption> VehicleOptions { get; set; }
-        //public DbSet<VehicleColor> VehicleColors { get; set; }
-        //public DbSet<DriveType> DriveTypes { get; set; }
-        //public DbSet<FuelType> FuelTypes { get; set; }
-        //public DbSet<Country> ManufacturerCountries { get; set; }
-        //public DbSet<TransmissionType> TransmissionTypes { get; set; }
-        //public DbSet<BodyType> BodyTypes { get; set; }
-
-
-        //public DbSet<Organization> Organizations  { get; set; }
-        //public DbSet<Filial> Filials  { get; set; }
-        //public DbSet<FilialOption> FilialOptions  { get; set; }
-        //public DbSet<Service> Services  { get; set; }
-        //public DbSet<ServiceCategory> ServiceCategories  { get; set; }
-        //public DbSet<ServiceType> ServiceTypes  { get; set; }
-        //public DbSet<ServicePrice> ServicePrices  { get; set; }
-        //public DbSet<PaymentType> PaymentTypes  { get; set; }
-        //public DbSet<Emploeer> Emploeers { get; set; }
-        //public DbSet<Customer> Customers { get; set; }
-        //public DbSet<Order> Orders { get; set; }
-        //public DbSet<Box> Boxes { get; set; }
-
-        //#endregion
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         #region Navigation
 
@@ -68,7 +42,6 @@ namespace Services
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<IdentityUser>().ToTable("AspNetUsers", "dto");
             modelBuilder.Entity<Culture>(etb =>
             {
                 etb.HasKey(e => e.Code);
