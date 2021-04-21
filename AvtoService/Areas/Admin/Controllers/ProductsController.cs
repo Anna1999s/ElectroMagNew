@@ -50,8 +50,8 @@ namespace WebSite.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id");
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name");
+            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name");
             return View();
         }
 
@@ -86,8 +86,8 @@ namespace WebSite.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id", product.CategoryId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Id", product.WarehouseId);
+            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", product.CategoryId);
+            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", product.WarehouseId);
             return View(product);
         }
 
@@ -123,8 +123,8 @@ namespace WebSite.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id", product.CategoryId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Id", product.WarehouseId);
+            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", product.CategoryId);
+            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", product.WarehouseId);
             return View(product);
         }
 

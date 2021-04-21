@@ -15,6 +15,7 @@ namespace DomainModel.Content
         public double Price { get; set; }
         public bool Status { get; set; } 
         public string Guarantee { get; set; }
+        public int Count { get; set; }
 
         //категория
         public int? CategoryId { get; set; }
