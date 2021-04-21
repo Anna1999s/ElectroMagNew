@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DomainModel.Content;
 using Interfaces.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -53,6 +54,36 @@ namespace WebSite.Areas.Admin.ViewComponents
                         new MenuItemViewModel {Title = _localizer["List"], Controller = "PageMenu", Action = "Index"}
                     },
                     Controller = "PageMenu"
+                },
+                new MenuItemViewModel
+                {
+                    Title = _localizer["Products"],
+                    Childs = new List<MenuItemViewModel>
+                    {
+                        new MenuItemViewModel {Title = _localizer["Add"], Controller = "Products", Action = "Create"},
+                        new MenuItemViewModel {Title = _localizer["List"], Controller = "Products", Action = "Index"}
+                    },
+                    Controller = "Products"
+                },
+                new MenuItemViewModel
+                {
+                    Title = _localizer["Categories"],
+                    Childs = new List<MenuItemViewModel>
+                    {
+                        new MenuItemViewModel {Title = _localizer["Add"], Controller = "ProductCategories", Action = "Create"},
+                        new MenuItemViewModel {Title = _localizer["List"], Controller = "ProductCategories", Action = "Index"}
+                    },
+                    Controller = "ProductCategories"
+                },
+                new MenuItemViewModel
+                {
+                    Title = _localizer["Warehouses"],
+                    Childs = new List<MenuItemViewModel>
+                    {
+                        new MenuItemViewModel {Title = _localizer["Add"], Controller = "Warehouses", Action = "Create"},
+                        new MenuItemViewModel {Title = _localizer["List"], Controller = "Warehouses", Action = "Index"}
+                    },
+                    Controller = "Warehouses"
                 }
             };
 

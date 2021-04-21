@@ -20,7 +20,7 @@ namespace Services
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        //public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
 
         #region Navigation

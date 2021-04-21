@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,8 +13,8 @@ namespace DomainModel.Content
         public virtual IList<Product> Products { get; set; }
 
         //клиент
-        public int? ClientId { get; set; }
-        public virtual Client Client { get; set; }
+        public string UserId { get; set; }
+        public IdentityUser User { get; set; }
 
         //сотрудник
         public int? EmployeesId { get; set; }
