@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using DomainModel.Content;
 using DomainModel.Localization;
 using Microsoft.AspNetCore.Identity;
 using WebSite.Models.Account;
+using WebSite.Models.Content;
 using WebSite.Models.Navigation;
 
 namespace WebSite.Models
@@ -14,6 +16,8 @@ namespace WebSite.Models
             CreateMap<LocalizedMenuItem, MenuItemViewModel>();
             CreateMap<LocalizedPage, PageViewModel>();
             CreateMap<UserViewModel, IdentityUser>();
+            CreateMap<ProductViewModel, Product>();
+            CreateMap<Product, ProductViewModel>();
         }
     }
 }

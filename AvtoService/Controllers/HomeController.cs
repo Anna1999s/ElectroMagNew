@@ -8,28 +8,37 @@ using System.Diagnostics;
 using Interfaces.Localization;
 using WebSite.Models;
 using System.Globalization;
+using Interfaces.Content;
+using AutoMapper;
+using System.Collections.Generic;
+using WebSite.Models.Content;
 
 namespace WebSite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IStringLocalizer<HomeController> _localizer;
         private readonly ILocalizedPageService _localizedPageRepository;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, ILocalizedPageService localizedPageRepository)
+        public HomeController(IMapper mapper,ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, ILocalizedPageService localizedPageRepository, IProductService productService) : base(mapper)
         {
             _logger = logger;
             _localizer = localizer;
             _localizedPageRepository = localizedPageRepository;
+            _productService = productService;
         }
 
-        //поставить точку остановы для теста localizations
         public IActionResult Index()
         {
             var currentCulture = CultureInfo.CurrentCulture.Name;
-           var result = _localizedPageRepository.GetAll(currentCulture);
-            return this.View(result);
+
+            var entity = _productService.GetLastLots();
+            var products = _mapper.Map<List<ProductViewModel>>(entity);
+
+            //var result = _localizedPageRepository.GetAll(currentCulture);
+            return View(new HomeViewModel { Products = products });
         }
 
         public IActionResult Privacy()
