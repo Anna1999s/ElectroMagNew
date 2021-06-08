@@ -34,7 +34,7 @@ namespace WebSite.Controllers
         {
             var currentCulture = CultureInfo.CurrentCulture.Name;
 
-            var entity = _productService.GetLastLots();
+            var entity = _productService.GetLastLots(3);
             var products = _mapper.Map<List<ProductViewModel>>(entity);
 
             //var result = _localizedPageRepository.GetAll(currentCulture);

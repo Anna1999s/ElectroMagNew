@@ -9,6 +9,8 @@ namespace Interfaces.Content
 {
     public interface IProductService
     {
-        List<Product> GetLastLots(int count = 5);
+        List<Product> GetLastLots(int count );
+        Task<Product> Add(Product entity);
+        Product GetById(int id);
     }
 }

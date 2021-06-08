@@ -18,6 +18,9 @@ namespace WebSite.Models
             CreateMap<UserViewModel, IdentityUser>();
             CreateMap<ProductViewModel, Product>();
             CreateMap<Product, ProductViewModel>();
+
+            CreateMap<PhotoViewModel, Photo>();
+            CreateMap<Photo, PhotoViewModel>();
         }
     }
 }

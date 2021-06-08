@@ -1,5 +1,6 @@
 ﻿using DomainModel.Content;
 using Interfaces.Content;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,21 @@ namespace Services.Content
         {
             _dbContext = dbContext;
         }
-        public List<Product> GetLastLots(int count = 5)
+        public List<Product> GetLastLots(int count)
         {
-            return _dbContext.Products.OrderByDescending(_ => _.Created).Take(count).ToList();
+            var productList = _dbContext.Products.Include(_=>_.Photos).OrderByDescending(_ => _.Created).Take(count).ToList();
+            return productList;
+        }
+        public async Task<Product> Add(Product entity)
+        {
+            await _dbContext.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
+        }
+        public Product GetById(int id)
+        {
+            var result = _dbContext.Products.Where(_ => _.Id == id).Include(_ => _.Photos).FirstOrDefault();
+            return result;
         }
     }
 }

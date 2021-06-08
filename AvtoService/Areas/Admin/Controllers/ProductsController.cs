@@ -7,23 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DomainModel.Content;
 using Services;
+using WebSite.Models.Content;
+using Interfaces.Content;
+using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using System.Globalization;
 
 namespace WebSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ProductsController : Controller
+    public class ProductsController : BaseAdminController
     {
         private readonly ApplicationDbContext _context;
-
-        public ProductsController(ApplicationDbContext context)
+        private readonly IProductService _productService;
+        private readonly IPhotoService _photoService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductsController(IMapper mapper, ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, IProductService productService, IPhotoService photoService) : base(mapper)
         {
             _context = context;
+            _photoService = photoService;
+            _productService = productService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Products.Include(p => p.Category).Include(p => p.Warehouse);
+            var applicationDbContext = _context.Products.Include(p => p.Category).Include(p => p.Warehouse).Include(p =>p.Photos);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -60,35 +70,46 @@ namespace WebSite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Status,Guarantee,CategoryId,WarehouseId")] Product product)
+        public async Task<IActionResult> Create( ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var product = _mapper.Map<Product>(model);
+               
+                if (model.Description != null) product.Description =(model.Description);
+                await _productService.Add(product);
+
+                if (model.UploadedPhotos != null)
+                    foreach (var photo in model.UploadedPhotos)
+                        product.Photos.Add(await _photoService.Add(photo, product.Id, _webHostEnvironment.WebRootPath));
+
+                //await Notify(model.Vehicle.VehicleMarkId, model.Vehicle.VehicleModelId, model.Vehicle.Year);
+
+                //if (model.State == (int)StateEnum.Edit)
+                //    return RedirectToAction("InactiveLots");
+                //if (model.State == (int)StateEnum.Publish)
+                //    return RedirectToAction("ActiveLots");
             }
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Id", product.CategoryId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Id", product.WarehouseId);
-            return View(product);
+
+            //await UpdateViewModel(model);
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
+        public async Task<IActionResult> Edit(int id)
+        {  
+            var entity = _productService.GetById(id);
+
+            if (entity == null)
             {
-                return NotFound();
+                ErrorMessage("Not found");
+                return RedirectToAction("InactiveLots");
             }
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", product.CategoryId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", product.WarehouseId);
-            return View(product);
+            var model = _mapper.Map<ProductViewModel>(entity);
+            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", entity.CategoryId);
+            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", entity.WarehouseId);
+            return View(model);
         }
 
         // POST: Admin/Products/Edit/5

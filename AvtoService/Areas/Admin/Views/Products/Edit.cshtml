@@ -1,4 +1,4 @@
-﻿@model DomainModel.Content.Product
+﻿@model WebSite.Models.Content.ProductViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" id="add-lot-form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -19,6 +19,26 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <input asp-for="UploadedPhotos" type="file" multiple>
+                <span asp-validation-for="UploadedPhotos"></span>
+            </div>
+            <ul id="vehicle-photo">
+                @for (var i = 0; i < Model.Photos.Count; i++)
+                {
+                    <li>
+                        
+                        <label for="@Model.Photos[i].Id">
+                            <img src="@Url.Content(Model.Photos[i].Path)" alt="" />
+                        </label>
+
+                        <input type="hidden" asp-for="@Model.Photos[i].Id" />
+                        <input type="hidden" asp-for="@Model.Photos[i].Created" />
+                        <input type="hidden" asp-for="@Model.Photos[i].Path" />
+                        <input type="hidden" asp-for="@Model.Photos[i].ProductId" />
+                    </li>
+                }
+            </ul>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />

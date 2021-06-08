@@ -25,5 +25,6 @@ namespace DomainModel.Content
         //склад
         public int? WarehouseId { get; set; }
         public virtual Warehouse Warehouse { get; set; }
+        public List<Photo> Photos { get; set; } //= new List<Photo>();
     }
 }

@@ -6,7 +6,7 @@ namespace Interfaces.Content
 {
     public interface IPhotoService
     {
-        Task<Photo> Add(IFormFile photo, int vehicleId, string filePath);
-        Task<Photo> AddByParser(string photoName, int vehicleId, string filePath);
+        Task<Photo> Add(IFormFile photo, int productId, string filePath);
+        
     }
 }

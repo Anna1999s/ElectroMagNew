@@ -1,4 +1,5 @@
 ﻿using DomainModel.Content;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,7 @@ namespace WebSite.Models.Content
         //склад
         public int? WarehouseId { get; set; }
         public virtual Warehouse Warehouse { get; set; }
+        public List<IFormFile> UploadedPhotos { get; set; }
+        public List<PhotoViewModel> Photos { get; set; }
     }
 }
