@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DomainModel.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DomainModel.Content
+namespace WebSite.Models.Content
 {
-    public class ProductCategory
+    public class ProductCategoryViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

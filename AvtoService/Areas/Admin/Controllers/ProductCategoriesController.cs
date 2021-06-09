@@ -47,6 +47,7 @@ namespace WebSite.Areas.Admin.Controllers
         // GET: Admin/ProductCategories/Create
         public IActionResult Create()
         {
+            ViewData["ParentCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name");
             return View();
         }
 
@@ -55,7 +56,7 @@ namespace WebSite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] ProductCategory productCategory)
+        public async Task<IActionResult> Create([Bind("Id,Name,ParentCategoryId")] ProductCategory productCategory)
         {
             if (ModelState.IsValid)
             {
@@ -74,11 +75,12 @@ namespace WebSite.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var productCategory = await _context.ProductCategories.FindAsync(id);
+            var productCategory = await _context.ProductCategories.Include(_=>_.ChaildCategories).FirstOrDefaultAsync(_=>_.Id == id);
             if (productCategory == null)
             {
                 return NotFound();
             }
+            ViewData["ParentCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", productCategory.ParentCategoryId);
             return View(productCategory);
         }
 
@@ -87,7 +89,7 @@ namespace WebSite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ProductCategory productCategory)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name, ParentCategoryId")] ProductCategory productCategory)
         {
             if (id != productCategory.Id)
             {
@@ -98,6 +100,7 @@ namespace WebSite.Areas.Admin.Controllers
             {
                 try
                 {
+                    
                     _context.Update(productCategory);
                     await _context.SaveChangesAsync();
                 }

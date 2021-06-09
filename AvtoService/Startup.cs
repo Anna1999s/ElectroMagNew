@@ -52,6 +52,7 @@ namespace WebSite
             services.AddTransient<IPhotoService, PhotoService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductCategoryService, ProductCategoryService>();
 
             services.Configure<GoogleTranslateConfig>(Configuration.GetSection("GoogleTranslateConfig"));
 

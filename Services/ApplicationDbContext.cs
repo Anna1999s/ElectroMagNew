@@ -12,7 +12,7 @@ namespace Services
             : base(options)
         {
         }
-              
+
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Page> Pages { get; set; }
 
@@ -53,7 +53,12 @@ namespace Services
             {
                 etb.HasKey(e => new { e.LocalizationSetId, e.CultureCode });
                 etb.ToTable("Localizations");
-            });          
+            });
+
+            modelBuilder.Entity<Photo>()
+                    .HasOne(e => e.Product)
+                    .WithMany(e => e.Photos)
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

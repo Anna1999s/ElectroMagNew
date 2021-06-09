@@ -82,16 +82,8 @@ namespace WebSite.Areas.Admin.Controllers
                 if (model.UploadedPhotos != null)
                     foreach (var photo in model.UploadedPhotos)
                         product.Photos.Add(await _photoService.Add(photo, product.Id, _webHostEnvironment.WebRootPath));
-
-                //await Notify(model.Vehicle.VehicleMarkId, model.Vehicle.VehicleModelId, model.Vehicle.Year);
-
-                //if (model.State == (int)StateEnum.Edit)
-                //    return RedirectToAction("InactiveLots");
-                //if (model.State == (int)StateEnum.Publish)
-                //    return RedirectToAction("ActiveLots");
             }
 
-            //await UpdateViewModel(model);
             return RedirectToAction("Index");
         }
 

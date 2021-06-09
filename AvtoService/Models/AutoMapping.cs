@@ -21,6 +21,9 @@ namespace WebSite.Models
 
             CreateMap<PhotoViewModel, Photo>();
             CreateMap<Photo, PhotoViewModel>();
+
+            CreateMap<ProductCategoryViewModel, ProductCategory>();
+            CreateMap<ProductCategory, ProductCategoryViewModel>();
         }
     }
 }

@@ -9,5 +9,6 @@ namespace WebSite.Models
     public class HomeViewModel
     {
         public List<ProductViewModel> Products { get; set; } = new();
+        public List<ProductCategoryViewModel> ProductCategory { get; set; } = new();
     }
 }

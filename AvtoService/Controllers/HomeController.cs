@@ -21,13 +21,15 @@ namespace WebSite.Controllers
         private readonly IStringLocalizer<HomeController> _localizer;
         private readonly ILocalizedPageService _localizedPageRepository;
         private readonly IProductService _productService;
+        private readonly IProductCategoryService _productCategoryService;
 
-        public HomeController(IMapper mapper,ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, ILocalizedPageService localizedPageRepository, IProductService productService) : base(mapper)
+        public HomeController(IMapper mapper,ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
         {
             _logger = logger;
             _localizer = localizer;
             _localizedPageRepository = localizedPageRepository;
             _productService = productService;
+            _productCategoryService = productCategoryService;
         }
 
         public IActionResult Index()
@@ -37,8 +39,11 @@ namespace WebSite.Controllers
             var entity = _productService.GetLastLots(3);
             var products = _mapper.Map<List<ProductViewModel>>(entity);
 
+
+            var entityCategories = _productCategoryService.GetAll();
+            var categories = _mapper.Map<List<ProductCategoryViewModel>>(entityCategories);
             //var result = _localizedPageRepository.GetAll(currentCulture);
-            return View(new HomeViewModel { Products = products });
+            return View(new HomeViewModel { Products = products , ProductCategory = categories});
         }
 
         public IActionResult Privacy()
