@@ -2,6 +2,10 @@
 @using Microsoft.AspNetCore.Http.Features
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
+@using WebSite.Models.Account;
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @inject IViewLocalizer Localizer
 @*<!DOCTYPE html>
@@ -117,14 +121,14 @@
                                 </a>
                             </div>
                         </div>
-                        
+
                         <!-- Start MAinmenu Ares -->
                         <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                             <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
                                     <li class="drop">
                                         <a asp-action="Index" asp-controller="Home">Home</a>
-                                        
+
                                     </li>
                                     <li class="drop">
                                         <a href="portfolio-gutter-box-3.html">portfolio</a>
@@ -264,11 +268,47 @@
                             </div>
                         </div>
                         <!-- End MAinmenu Ares -->
-                        <div class="col-md-2 col-sm-4 col-xs-3">
+                        <div class="col-md-5 col-sm-4 col-xs-3">
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
-                                <li><a asp-controller="account" asp-action="Register"><span class="ti-user"></span></a></li>
-                                <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
+                                <li>
+                                    <ul style="display: flex;">
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            @*<li class="dropdown">
+                                                <a asp-area="" asp-page="/Account/Manage/Index" class="text-dark" data-toggle="dropdown"><i class="fa fa-home mr-1"></i><span> @User.Identity.Name</span></a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a asp-controller="Cabinet" asp-action="MyProfile" class="dropdown-item">
+                                                        <i class="dropdown-icon icon icon-user"></i> My Profile
+                                                    </a>
+                                                    <a class="dropdown-item" asp-controller="account" asp-action="Logout">
+                                                        <i class="dropdown-icon icon icon-power"></i> @Localizer["Выйти"]
+                                                    </a>
+                                                </div>
+                                            </li>*@
+                                            <li style="position: relative; bottom: 1px; margin: 0;">
+                                                <a asp-area="" asp-page="/Account/Manage/Index"> @User.Identity.Name</a>
+                                            </li>
+                                            <li style="position: relative; bottom: 1px; margin: 0; padding: 0;">
+                                                <a asp-controller="account" asp-action="Logout">Выйти</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li style="position: relative; bottom: 1px; margin: 0; padding: 0;">
+                                                <a asp-controller="account" asp-action="Register">@Localizer["Регистрация"]&nbsp&nbsp</a>
+                                            </li>
+                                            <li style="position: relative; bottom: 1px; margin: 0; padding: 0;">
+                                                <a asp-controller="account" asp-action="Login">Войти</a>
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </li>
+                                <li class="cart__menu">
+
+                                    <span class="ti-shopping-cart"></span>
+                                </li>
                                 <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                             </ul>
                         </div>
