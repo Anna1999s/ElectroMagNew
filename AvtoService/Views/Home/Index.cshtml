@@ -55,7 +55,7 @@
             <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12 float-right-style">
                 <div class="categories-menu mrg-xs">
                     <div class="category-heading">
-                        <h3> Browse Categories</h3>
+                        <h3> Категории</h3>
                     </div>
                     <div class="category-menu-list">
                         <ul>
@@ -97,7 +97,7 @@
 <div class="only-banner ptb--100 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="images/new-product/3.jpg" alt="new product"></a>
+            <a href="shop-sidebar.html"><img src="images/cover-9.png" alt="new product"></a>
         </div>
     </div>
 </div>
@@ -171,7 +171,7 @@
                                             <div class="product">
                                                 <div class="product__inner">
                                                     <div class="pro__thumb">
-                                                        <a href="#">
+                                                        <a asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id">
                                                             <img src="@item.Photos.FirstOrDefault()?.Path" alt="product images">
                                                         </a>
                                                     </div>
@@ -184,7 +184,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="product__details">
-                                                    <h2><a href="product-details.html">@item.Name</a></h2>
+                                                    <h2><a asp-controller="Product" asp-action="Details" asp-route-Id="@item.Id">@item.Name</a></h2>
                                                     <ul class="product__price">
                                                         <li class="old__price">@item.Price</li>
                                                         <li class="new__price">$10.00</li>
@@ -700,7 +700,7 @@
 <div class="only-banner ptb--100 bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="images/new-product/6.jpg" alt="new product"></a>
+            <a href="shop-sidebar.html"><img src="images/timer_1920.jpg" alt="new product"></a>
         </div>
     </div>
 </div>
@@ -1373,7 +1373,7 @@
 <div class="only-banner bg__white">
     <div class="container">
         <div class="only-banner-img">
-            <a href="shop-sidebar.html"><img src="images/new-product/7.jpg" alt="new product"></a>
+            <a href="shop-sidebar.html"><img src="images/photoeditorsdk-export (1).png" alt="new product"></a>
         </div>
     </div>
 </div>
@@ -1777,7 +1777,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="section__title section__title--2 text-center">
-                    <h2 class="title__line">Latest News</h2>
+                    <h2 class="title__line">Последние новости</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod temp incididunt ut labore et dolore magna aliqua. </p>
                 </div>
             </div>
@@ -1785,6 +1785,40 @@
         <div class="row">
             <div class="blog__wrap clearfix mt--60 xmt-30">
                 <!-- Start Single Blog -->
+
+                @foreach (var item in Model.News)
+                {
+                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                        <div class="blog foo">
+                            <div class="blog__inner">
+                                <div class="blog__thumb">
+                                    <a asp-action="Details" asp-controller="News" asp-route-Id="@item.Id" style="color:yellow;">
+                                        <img src="@item.Photo?.Path" alt="blog images">
+                                    </a>
+                                    <div class="blog__post__time">
+                                        <div class="post__time--inner">
+                                            <span class="date">@item.Created.Day</span>
+                                            <span class="month">@item.Created.ToString("MMMM")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="blog__hover__info">
+                                    <div class="blog__hover__action">
+                                        <p class="blog__des"><a style="color:yellow;" asp-action="Details" asp-controller="News" asp-route-Id="@item.Id">@item.Name</a></p>
+                                        <ul class="bl__meta">
+                                            <li>By :<a style="color:yellow;" href="#">Admin</a></li>
+                                            @*<li>Product</li>*@
+                                        </ul>
+                                        <div class="blog__btn">
+                                            <a asp-action="Details" asp-controller="News" asp-route-Id="@item.Id" style="color:yellow;" class="read__more__btn">подробнеe</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
                 <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                     <div class="blog foo">
                         <div class="blog__inner">

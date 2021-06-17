@@ -22,7 +22,7 @@ namespace Services
         public DbSet<Warehouse> Warehouses { get; set; }
         //public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
+        public DbSet<New> News { get; set; }
         #region Navigation
 
         public DbSet<Menu> Menus { get; set; }

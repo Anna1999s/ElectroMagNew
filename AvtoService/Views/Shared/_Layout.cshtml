@@ -107,7 +107,7 @@
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Body main wrapper start -->
-    <div class="wrapper fixed__footer">
+    <div class="wrapper fixed__footer" style="margin-bottom:0px !important;">
         <!-- Start Header Style -->
         <header id="header" class="htc-header header--3 bg__white">
             <!-- Start Mainmenu Area -->
@@ -127,11 +127,11 @@
                             <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
                                     <li class="drop">
-                                        <a asp-action="Index" asp-controller="Home">Home</a>
+                                        <a asp-action="Index" asp-controller="Home">Главная</a>
 
                                     </li>
                                     <li class="drop">
-                                        <a href="portfolio-gutter-box-3.html">portfolio</a>
+                                        <a href="portfolio-gutter-box-3.html">Контакты</a>
                                         <ul class="dropdown">
                                             <li><a href="portfolio-gutter-box-3.html">Boxed Gutter 3 Col</a></li>
                                             <li><a href="portfolio-gutter-full-wide-4.html">Wide Gutter 4 Col </a></li>
@@ -143,17 +143,17 @@
                                             <li><a href="single-portfolio-gallery.html">Portfolio Details </a></li>
                                         </ul>
                                     </li>
-                                    <li class="drop">
+                                    @*<li class="drop">
                                         <a href="blog.html">Blog</a>
                                         <ul class="dropdown">
                                             <li><a href="blog.html">blog 3 column</a></li>
                                             <li><a href="blog-2-col-rightsidebar.html">2 col right siderbar</a></li>
                                             <li><a href="blog-details-left-sidebar.html"> blog details</a></li>
                                         </ul>
-                                    </li>
+                                    </li>*@
 
                                     <li class="drop">
-                                        <a href="shop.html">Shop</a>
+                                        <a href="shop.html">Вакансии</a>
                                         <ul class="dropdown mega_dropdown">
                                             <!-- Start Single Mega MEnu -->
                                             <li>
@@ -201,7 +201,7 @@
                                         </ul>
                                     </li>
                                     <li class="drop">
-                                        <a href="#">pages</a>
+                                        <a href="#">Помощь</a>
                                         <ul class="dropdown">
                                             <li><a href="about.html">about</a></li>
                                             <li><a href="shop.html">shop</a></li>
@@ -214,7 +214,7 @@
                                             <li><a href="login-register.html">login & register</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="contact.html">contact</a></li>
+                                    @*<li><a href="contact.html">contact</a></li>*@
                                 </ul>
                             </nav>
                             <div class="mobile-menu clearfix visible-xs visible-sm">
@@ -691,3 +691,9 @@
 </body>
 
 </html>
+
+<style>
+    .wrapper fixed__footer {
+        margin-bottom: 0 !important;
+    }
+</style>

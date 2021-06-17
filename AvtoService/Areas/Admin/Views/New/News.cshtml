@@ -1,0 +1,73 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<WebSite.Models.Content.NewViewModel>
+@inject IViewLocalizer Localizer
+
+
+<div class="page-layout simple left-sidebar-floating doc forms-doc">
+    <div class="page-header bg-primary text-auto row no-gutters align-items-center justify-content-between p-4 p-sm-6">
+        <div class="col">
+            <div class="row no-gutters align-items-center flex-nowrap">
+                <div class="col-12 col-sm">
+                    <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+                        <div class="logo-icon mr-3 mt-1">
+                            <i class="icon-anchor s-6"></i>
+                        </div>
+                        <div class="logo-text">
+                            <div class="h4">@Localizer["Новости"]</div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <a asp-action="Create" asp-controller="New" class="btn btn-light fuse-ripple-ready">@Localizer["Добавить новость"]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model.Any())
+    {
+        <table id="e-commerce-products-table" class="table dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="table-header">
+                            <span class="column-title">@Localizer["Название"]</span>
+                        </div>
+                    </th>
+                    @*<th>
+                            <div class="table-header">
+                                <span class="column-title">@Localizer["Context"]</span>
+                            </div>
+                        </th>*@
+                    <th>
+                        <div class="table-header">
+                            <span class="column-title">@Localizer["Дата создания"]</span>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        @*<td>@Html.Raw(@item.Context)</td>*@
+                        <td>@item.Created</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-Id="@item.Id" title="@Localizer["Редактировать"]">
+                                <i class="icon-table-edit s-5"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-Id="@item.Id" title="@Localizer["Удалить"]">
+                                <i class="icon-delete s-5"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

@@ -37,6 +37,26 @@ namespace Services.Content
             await _dbContext.SaveChangesAsync();
             return entity;
         }
+        public async Task<Photo> AddNew(IFormFile photo, int newId, string wwwroot)
+        {
+            var filePath =
+                Directory.CreateDirectory(Path.Combine(wwwroot, WorkContext.ImagePath, newId.ToString()));
+            if (!Directory.Exists(filePath.FullName)) Directory.CreateDirectory(filePath.FullName);
+
+            var fileName = Path.Combine(WorkContext.ImagePath, newId.ToString(),
+                Guid.NewGuid() + Path.GetExtension(photo.FileName));
+
+            await using var fileSteam = new FileStream(Path.Combine(wwwroot, fileName), FileMode.Create);
+            await photo.CopyToAsync(fileSteam);
+
+            var entity = new Photo
+            {
+                Path = @"\" + fileName
+            };
+            //await _dbContext.AddAsync(entity);
+            //await _dbContext.SaveChangesAsync();
+            return entity;
+        }
 
     }
 }

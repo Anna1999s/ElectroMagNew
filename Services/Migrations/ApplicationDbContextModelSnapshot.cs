@@ -45,6 +45,44 @@ namespace Services.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("DomainModel.Content.New", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Context")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ContextId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NameId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PhotoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhotoId");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("DomainModel.Content.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -578,6 +616,15 @@ namespace Services.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DomainModel.Content.New", b =>
+                {
+                    b.HasOne("DomainModel.Content.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
+
+                    b.Navigation("Photo");
                 });
 
             modelBuilder.Entity("DomainModel.Content.Order", b =>

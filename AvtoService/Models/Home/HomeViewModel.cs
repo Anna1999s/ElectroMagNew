@@ -10,5 +10,6 @@ namespace WebSite.Models
     {
         public List<ProductViewModel> Products { get; set; } = new();
         public List<ProductCategoryViewModel> ProductCategory { get; set; } = new();
+        public List<NewViewModel> News { get; set; } = new();
     }
 }

@@ -1492,6 +1492,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Areas\Admin\Models\" />
+    <Folder Include="wwwroot\assetsDetails\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

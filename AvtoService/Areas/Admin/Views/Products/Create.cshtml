@@ -1,14 +1,14 @@
 ﻿@model WebSite.Models.Content.ProductViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    //ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+@*<h1>Create</h1>
 
 <h4>Product</h4>
-<hr />
+<hr />*@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post" id="add-lot-form" enctype="multipart/form-data">
@@ -58,14 +58,14 @@
                 <select asp-for="WarehouseId" class="form-control" asp-items="ViewBag.WarehouseId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Вернуться к списку</a>
 </div>
 
 @section Scripts {

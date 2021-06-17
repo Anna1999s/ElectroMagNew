@@ -53,6 +53,7 @@ namespace WebSite
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<INewService, NewService>();
 
             services.Configure<GoogleTranslateConfig>(Configuration.GetSection("GoogleTranslateConfig"));
 

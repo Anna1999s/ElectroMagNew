@@ -28,7 +28,7 @@ namespace WebSite.Areas.Admin.ViewComponents
         {
             var currentController = ViewContext.RouteData.Values["Controller"];
             var currentAction = ViewContext.RouteData.Values["Action"];
-         
+
             var model = new List<MenuItemViewModel>
             {
                 new MenuItemViewModel
@@ -57,7 +57,7 @@ namespace WebSite.Areas.Admin.ViewComponents
                 },
                 new MenuItemViewModel
                 {
-                    Title = _localizer["Products"],
+                    Title = _localizer["Продукты"],
                     Childs = new List<MenuItemViewModel>
                     {
                         new MenuItemViewModel {Title = _localizer["Add"], Controller = "Products", Action = "Create"},
@@ -67,7 +67,7 @@ namespace WebSite.Areas.Admin.ViewComponents
                 },
                 new MenuItemViewModel
                 {
-                    Title = _localizer["Categories"],
+                    Title = _localizer["Категории"],
                     Childs = new List<MenuItemViewModel>
                     {
                         new MenuItemViewModel {Title = _localizer["Add"], Controller = "ProductCategories", Action = "Create"},
@@ -77,14 +77,23 @@ namespace WebSite.Areas.Admin.ViewComponents
                 },
                 new MenuItemViewModel
                 {
-                    Title = _localizer["Warehouses"],
+                    Title = _localizer["Склады"],
                     Childs = new List<MenuItemViewModel>
                     {
                         new MenuItemViewModel {Title = _localizer["Add"], Controller = "Warehouses", Action = "Create"},
                         new MenuItemViewModel {Title = _localizer["List"], Controller = "Warehouses", Action = "Index"}
                     },
                     Controller = "Warehouses"
-                }
+                },
+                 new MenuItemViewModel
+                 {
+                    Title = _localizer["Новости"],
+                    Childs = new List<MenuItemViewModel>
+                    {
+                        new MenuItemViewModel {Title = _localizer["List"], Controller = "New", Action = "News"}
+                    },
+                    Controller = "New"
+                 }
             };
 
             foreach (var item in model)

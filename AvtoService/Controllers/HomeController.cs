@@ -12,6 +12,8 @@ using Interfaces.Content;
 using AutoMapper;
 using System.Collections.Generic;
 using WebSite.Models.Content;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebSite.Controllers
 {
@@ -22,17 +24,19 @@ namespace WebSite.Controllers
         private readonly ILocalizedPageService _localizedPageRepository;
         private readonly IProductService _productService;
         private readonly IProductCategoryService _productCategoryService;
+        private readonly INewService _newService;
 
-        public HomeController(IMapper mapper,ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
+        public HomeController(IMapper mapper,ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, INewService newService, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
         {
             _logger = logger;
             _localizer = localizer;
             _localizedPageRepository = localizedPageRepository;
             _productService = productService;
             _productCategoryService = productCategoryService;
+            _newService = newService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var currentCulture = CultureInfo.CurrentCulture.Name;
 
@@ -42,8 +46,11 @@ namespace WebSite.Controllers
 
             var entityCategories = _productCategoryService.GetAll();
             var categories = _mapper.Map<List<ProductCategoryViewModel>>(entityCategories);
-            //var result = _localizedPageRepository.GetAll(currentCulture);
-            return View(new HomeViewModel { Products = products , ProductCategory = categories});
+
+            var entityNews = await _newService.GetAll();
+            var news = _mapper.Map<List<NewViewModel>>(entityNews).OrderByDescending(_ => _.Created).Take(3).ToList();
+            
+            return View(new HomeViewModel { Products = products , ProductCategory = categories, News = news});
         }
 
         public IActionResult Privacy()

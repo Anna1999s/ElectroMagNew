@@ -24,6 +24,9 @@ namespace WebSite.Models
 
             CreateMap<ProductCategoryViewModel, ProductCategory>();
             CreateMap<ProductCategory, ProductCategoryViewModel>();
+
+            CreateMap<New, NewViewModel>();
+            CreateMap<NewViewModel, New>();
         }
     }
 }
