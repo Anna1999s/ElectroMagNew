@@ -54,6 +54,10 @@ namespace WebSite
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<INewService, NewService>();
+            services.AddTransient<IBasketService, BasketService>();
+            services.AddTransient<IBasketItemService, BasketItemService>();
+
+            services.AddMemoryCache();
 
             services.Configure<GoogleTranslateConfig>(Configuration.GetSection("GoogleTranslateConfig"));
 

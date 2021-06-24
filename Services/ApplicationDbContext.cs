@@ -23,6 +23,8 @@ namespace Services
         //public DbSet<Client> Clients { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<New> News { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
         #region Navigation
 
         public DbSet<Menu> Menus { get; set; }

@@ -30,8 +30,9 @@ namespace Services.Content
         }
         public Product GetById(int id)
         {
-            var result = _dbContext.Products.Where(_ => _.Id == id).Include(_ => _.Photos).FirstOrDefault();
+            var result = _dbContext.Products.Where(_ => _.Id == id).Include(_ => _.Photos).Include(_=>_.Category).FirstOrDefault();
             return result;
         }
+        
     }
 }

@@ -8,6 +8,10 @@
 @inject UserManager<IdentityUser> UserManager
 
 @inject IViewLocalizer Localizer
+
+@{ 
+    var userId = UserManager.GetUserId(User);
+}
 @*<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -309,7 +313,7 @@
 
                                     <span class="ti-shopping-cart"></span>
                                 </li>
-                                <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
+                                @*<li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>*@
                             </ul>
                         </div>
                     </div>
@@ -408,7 +412,8 @@
                         <a href="#"><i class="zmdi zmdi-close"></i></a>
                     </div>
                     <div class="shp__cart__wrap">
-                        <div class="shp__single__product">
+                        @await Component.InvokeAsync("Basket", new { userId = userId })
+                        @*<div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
                                     <img src="/images/product/sm-img/1.jpg" alt="product images">
@@ -437,14 +442,14 @@
                             <div class="remove__btn">
                                 <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <ul class="shoping__total">
-                        <li class="subtotal">Subtotal:</li>
+                        <li class="subtotal">Итого:</li>
                         <li class="total__price">$130.00</li>
                     </ul>
                     <ul class="shopping__btn">
-                        <li><a href="cart.html">View Cart</a></li>
+                        <li><a asp-action="DetailsCart" asp-controller="Cart" asp-route-userId="@userId">Корзина</a></li>
                         <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
                     </ul>
                 </div>

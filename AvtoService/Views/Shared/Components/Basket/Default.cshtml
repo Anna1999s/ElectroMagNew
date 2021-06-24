@@ -1,0 +1,28 @@
+﻿@{double subtotal = 0; }
+@if (Model != null)
+{
+    @foreach (var item in Model as List<DomainModel.Content.BasketItem>)
+    {
+        subtotal = subtotal + item.Product.Price;
+        <div class="shp__single__product">
+            <div class="shp__pro__thumb">
+                <a href="#">
+                    <img src="@item.Product.Photos.FirstOrDefault()?.Path" alt="product images">
+                </a>
+            </div>
+            <div class="shp__pro__details">
+                <h2><a href="product-details.html">@item.Product.Name</a></h2>
+                <span class="quantity">Количество: @item.Count</span>
+                <span class="shp__price">$@(item.Count * item.Product.Price)</span>
+            </div>
+            <div class="remove__btn">
+                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
+            </div>
+        </div>
+
+    }
+}
+<ul class="shoping__total">
+    <li class="subtotal">Итого:</li>
+    <li class="total__price">@subtotal</li>
+</ul>

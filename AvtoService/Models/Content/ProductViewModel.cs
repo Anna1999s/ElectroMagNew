@@ -17,6 +17,9 @@ namespace WebSite.Models.Content
         public string Description { get; set; }
         [Display(Name = "Цена")]
         public double Price { get; set; }
+        [Display(Name = "Старая цена")]
+        public double? OldPrice { get; set; }
+        
         [Display(Name = "Статус")]
         public bool Status { get; set; }
         [Display(Name = "Гарантия")]

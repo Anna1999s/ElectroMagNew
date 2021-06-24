@@ -23,6 +23,9 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.OldPrice)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Count)
             </th>
             <th>
@@ -51,6 +54,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldPrice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Count)

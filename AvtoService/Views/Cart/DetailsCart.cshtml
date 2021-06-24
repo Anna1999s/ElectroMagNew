@@ -1,0 +1,172 @@
+﻿@model IEnumerable<DomainModel.Content.BasketItem>
+
+@{
+    double subtotal = 0;
+}
+
+@*<h1>DetailsCart</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasketId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Updated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BasketId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+<!-- cart-main-area start -->
+<div class="cart-main-area ptb--120 bg__white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <form action="#">
+                    <div class="table-content table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="product-thumbnail">Фото</th>
+                                    <th class="product-name">Товар</th>
+                                    <th class="product-price">Цена</th>
+                                    <th class="product-quantity">Количество</th>
+                                    <th class="product-subtotal">Итого</th>
+                                    <th class="product-remove">Удалить</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    subtotal = subtotal + item.Product.Price;
+                                    
+                                    <tr>
+                                        <td class="product-thumbnail"><a asp-controller="Product" asp-action="Details" asp-route-Id="@item.Product.Id"><img src="@item.Product.Photos.FirstOrDefault()?.Path" alt="product img" /></a></td>
+                                        <td class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-Id="@item.Product.Id">@item.Product.Name</a></td>
+                                        <td class="product-price"><span class="amount">@item.Product.Price</span></td>
+                                        <td class="product-quantity"><input type="number" value="@item.Count" /></td>
+                                        <td class="product-subtotal">@(item.Product.Price * item.Count)</td>
+                                        <td class="product-remove"><a href="#">X</a></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 col-sm-7 col-xs-12">
+                            <div class="buttons-cart">
+                                @*<input type="submit" value="Update Cart" />*@
+                                <a asp-action="Index" asp-controller="Home">Продолжить покупки</a>
+                            </div>
+                            @*<div class="coupon">
+                                <h3>Coupon</h3>
+                                <p>Enter your coupon code if you have one.</p>
+                                <input type="text" placeholder="Coupon code" />
+                                <input type="submit" value="Apply Coupon" />
+                            </div>*@
+                        </div>
+                        <div class="col-md-4 col-sm-5 col-xs-12">
+                            <div class="cart_totals">
+                                <h2>Стоимость заказа</h2>
+                                <table>
+                                    <tbody>
+                                        <tr class="cart-subtotal">
+                                            <th>Итоговая стоимость</th>
+                                            <td><span class="amount">@subtotal</span></td>
+                                        </tr>
+                                        <tr class="shipping">
+                                            <th>Доставка</th>
+                                            <td>
+                                                <ul id="shipping_method">
+                                                    @*<li>
+                                                        <input type="radio" />
+                                                        <label>
+                                                            Flat Rate: <span class="amount">£7.00</span>
+                                                        </label>
+                                                    </li>*@
+                                                    <li>
+                                                        <input type="radio" value="true" />
+                                                        <label>
+                                                           Бесплатная доставка
+                                                        </label>
+                                                    </li>
+                                                    <li></li>
+                                                </ul>
+                                                @*<p><a class="shipping-calculator-button" href="#">Calculate Shipping</a></p>*@
+                                            </td>
+                                        </tr>
+                                        <tr class="order-total">
+                                            <th>Итого</th>
+                                            <td>
+                                                <strong><span class="amount">@subtotal</span></strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="wc-proceed-to-checkout">
+                                    <a href="checkout.html">Перейти к оформлению заказа</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart-main-area end -->

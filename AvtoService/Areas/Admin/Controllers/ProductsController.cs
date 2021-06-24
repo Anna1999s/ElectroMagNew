@@ -109,7 +109,7 @@ namespace WebSite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Status,Guarantee,CategoryId,WarehouseId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price, OldPrice,Status,Guarantee,CategoryId,WarehouseId")] Product product)
         {
             if (id != product.Id)
             {

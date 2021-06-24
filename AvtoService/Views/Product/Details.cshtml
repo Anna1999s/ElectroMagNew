@@ -24,6 +24,7 @@
 
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="/js/vendor/jquery-1.12.0.min.js"></script>
 
 @*<h1>Details</h1>
 
@@ -101,9 +102,13 @@
             <!-- Product main img -->
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
-                    <div class="product-preview">
-                        <img src="/assetsDetails/img/product01.png" alt="">
-                    </div>
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <div class="product-preview">
+                            <img src=@photo.Path alt="">
+                        </div>
+                    }
+
 
                     <div class="product-preview">
                         <img src="/assetsDetails/img/product03.png" alt="">
@@ -122,6 +127,12 @@
             <!-- Product thumb imgs -->
             <div class="col-md-2  col-md-pull-5">
                 <div id="product-imgs">
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <div class="product-preview">
+                            <img src=@photo.Path alt="">
+                        </div>
+                    }
                     <div class="product-preview">
                         <img src="/assetsDetails/img/product01.png" alt="">
                     </div>
@@ -143,7 +154,7 @@
             <!-- Product details -->
             <div class="col-md-5">
                 <div class="product-details">
-                    <h2 class="product-name">product name goes here</h2>
+                    <h2 class="product-name">@Model.Name</h2>
                     <div>
                         <div class="product-rating">
                             <i class="fa fa-star"></i>
@@ -155,8 +166,8 @@
                         <a class="review-link" href="#">10 Review(s) | Add your review</a>
                     </div>
                     <div>
-                        <h3 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h3>
-                        <span class="product-available">In Stock</span>
+                        <h3 class="product-price">$@Model.Price <del class="product-old-price">$@Model.OldPrice</del></h3>
+                        @*<span class="product-available">In Stock</span>*@
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -177,25 +188,25 @@
 
                     <div class="add-to-cart">
                         <div class="qty-label">
-                            Qty
+                            Количество
                             <div class="input-number">
-                                <input type="number">
+                                <input class="Qwz" type="number" value="1">
                                 <span class="qty-up">+</span>
                                 <span class="qty-down">-</span>
                             </div>
                         </div>
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                        <a prodId="@Model.Id" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Добавить в корзину</a>
                     </div>
 
                     <ul class="product-btns">
-                        <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
-                        <li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>
+                        <li><a href="#"><i class="fa fa-heart-o"></i> добавить в избранное</a></li>
+                        @*<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>*@
                     </ul>
 
                     <ul class="product-links">
-                        <li>Category:</li>
-                        <li><a href="#">Headphones</a></li>
-                        <li><a href="#">Accessories</a></li>
+                        <li>Категория:</li>
+                        <li><a href="#">@Model.Category.Name</a></li>
+                        @*<li><a href="#">Accessories</a></li>*@
                     </ul>
 
                     <ul class="product-links">
@@ -429,10 +440,69 @@
     .wrapper fixed__footer {
         margin-bottom: 0 !important;
     }
+
     .fixed__footer .htc__foooter__area {
         position: inherit !important;
     }
 </style>
+
+<script>
+    $(document).ready(function () {
+
+    $('.add-to-cart-btn').on("click", function (e) {
+        e.preventDefault();
+
+        var productId = $(this).attr("prodId");
+        var count = $(".Qwz").val();
+
+        //var count = $(this).attr("Qwz");
+        console.log("count", count);
+        console.log("productId", productId);
+        addItemToCart(productId, count);
+    });
+    function addItemToCart(productId, count) {
+       
+            var product = {
+                ProductId: productId,
+            }
+         console.log("product", product);
+
+            @*$.post({
+              type: "Get",
+              url: '@Url.Action("AddToBasket", "Cart")',
+              data: product,
+              async: false,
+                success: function (data) {
+                    console.log("data", data);
+                //updateCart();
+              }
+            });*@
+        $.post("/Cart/AddToBasket",
+            {
+                ProductId: productId,
+                count: count
+            },
+            function (data) {
+                console.log("data", data);
+
+
+            }
+        );
+    }
+
+          @*function updateCart() {
+            $.ajax({
+              type: "Get",
+              url: '@Url.Action("BasketHeader", "Cart")',
+              async: false,
+              success: function (data) {
+                $('.mini-cart').html(data);
+              }
+            });
+          }*@
+    });
+
+</script>
 
 <script src="/assetsDetails/js/jquery.min.js"></script>
 <script src="/assetsDetails/js/bootstrap.min.js"></script>
