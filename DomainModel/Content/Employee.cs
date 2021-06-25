@@ -14,6 +14,6 @@ namespace DomainModel.Content
         public string Function { get; set; } //должность
 
         public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }

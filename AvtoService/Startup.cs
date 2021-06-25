@@ -23,6 +23,7 @@ using Services.Navigation;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Proxies;
 
 namespace WebSite
 {
@@ -39,7 +40,7 @@ namespace WebSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseLazyLoadingProxies().UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

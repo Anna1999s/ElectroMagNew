@@ -13,16 +13,16 @@ namespace DomainModel.Navigation
         }
         public int Order { get; set; }
         public int? NameId { get; set; }
-        public LocalizationSet Name { get; set; }
+        public virtual LocalizationSet Name { get; set; }
         public string Controller { get; set; }
         public string Action { get; set; }
 
         public string CustomUrl { get; set; }
         public bool IsHidden { get; set; }
         public int? PageId { get; set; }
-        public Page Page { get; set; }
+        public virtual Page Page { get; set; }
         
         public int? MenuId { get; set; }
-        public Menu Menu { get; set; }
+        public virtual Menu Menu { get; set; }
     }
 }

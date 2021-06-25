@@ -38,6 +38,6 @@ namespace DomainModel.Content
         public int? WarehouseId { get; set; }
         [Display(Name = "Склад")]
         public virtual Warehouse Warehouse { get; set; }
-        public List<Photo> Photos { get; set; } //= new List<Photo>();
+        public virtual List<Photo> Photos { get; set; } //= new List<Photo>();
     }
 }

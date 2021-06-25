@@ -6,8 +6,8 @@ namespace DomainModel.Navigation
     public class Menu : BaseEntity
     {
         public int? NameId { get; set; }
-        public LocalizationSet Name { get; set; }
+        public virtual LocalizationSet Name { get; set; }
 
-        public IList<MenuItem> Items { get; set; }
+        public virtual IList<MenuItem> Items { get; set; }
     }
 }

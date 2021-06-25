@@ -14,7 +14,7 @@ namespace DomainModel.Content
 
         //клиент
         public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public virtual IdentityUser User { get; set; }
 
         //сотрудник
         public int? EmployeesId { get; set; }

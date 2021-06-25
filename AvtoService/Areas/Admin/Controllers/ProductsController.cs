@@ -109,9 +109,9 @@ namespace WebSite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price, OldPrice,Status,Guarantee,CategoryId,WarehouseId")] Product product)
+        public async Task<IActionResult> Edit(int id, ProductViewModel model)
         {
-            if (id != product.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -120,12 +120,19 @@ namespace WebSite.Areas.Admin.Controllers
             {
                 try
                 {
+                    var product = _productService.GetById(id);
+                    product = _mapper.Map(model, product);
+                    if (model.UploadedPhotos != null)
+                        foreach (var photo in model.UploadedPhotos)
+                            product.Photos.Add(await _photoService.Add(photo, product.Id,
+                                _webHostEnvironment.WebRootPath));
+                    
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -136,9 +143,9 @@ namespace WebSite.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", product.CategoryId);
-            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", product.WarehouseId);
-            return View(product);
+            ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", model.CategoryId);
+            ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", model.WarehouseId);
+            return View(model);
         }
 
         // GET: Admin/Products/Delete/5

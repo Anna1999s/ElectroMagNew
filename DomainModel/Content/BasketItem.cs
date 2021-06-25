@@ -8,10 +8,10 @@ namespace DomainModel.Content
 {
     public class BasketItem : BaseEntity
     {
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
         public int ProductId { get; set; }
         public int Count { get; set; }
         public int BasketId { get; set; }
-        public Basket Basket { get; set; }
+        public virtual Basket Basket { get; set; }
     }
 }

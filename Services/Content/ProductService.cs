@@ -19,7 +19,12 @@ namespace Services.Content
         }
         public List<Product> GetLastLots(int count)
         {
-            var productList = _dbContext.Products.Include(_=>_.Photos).OrderByDescending(_ => _.Created).Take(count).ToList();
+            var productList = _dbContext.Products.OrderByDescending(_ => _.Created).Take(count).ToList();
+            return productList;
+        }
+        public List<Product> GetAll()
+        {
+            var productList = _dbContext.Products.OrderByDescending(_ => _.Created).ToList();
             return productList;
         }
         public async Task<Product> Add(Product entity)
@@ -30,9 +35,24 @@ namespace Services.Content
         }
         public Product GetById(int id)
         {
-            var result = _dbContext.Products.Where(_ => _.Id == id).Include(_ => _.Photos).Include(_=>_.Category).FirstOrDefault();
+            var result = _dbContext.Products.Where(_ => _.Id == id).Include(_ => _.Photos).Include(_ => _.Category).FirstOrDefault();
             return result;
         }
-        
+        public List<Product> GetByIdFromCategory(int categoryId)
+        {
+            var category = _dbContext.ProductCategories.FirstOrDefault(_ => _.Id == categoryId);
+            var categoryIds = new List<int> { categoryId };
+            GetCategoryIds(ref categoryIds, category);
+
+            var productList = _dbContext.Products.Where(_ => categoryIds.Contains(_.CategoryId.Value)).ToList();
+            return productList;
+        }
+
+        void GetCategoryIds(ref List<int> categoryIds, ProductCategory category)
+        {
+            categoryIds.AddRange(category.ChaildCategories.Select(_ => _.Id).ToList());
+            foreach (var item in category.ChaildCategories)
+                GetCategoryIds(ref categoryIds, item);
+        }
     }
 }

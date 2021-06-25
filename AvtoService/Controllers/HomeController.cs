@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using WebSite.Models.Content;
 using System.Linq;
 using System.Threading.Tasks;
+using DomainModel.Content;
 
 namespace WebSite.Controllers
 {
@@ -26,7 +27,7 @@ namespace WebSite.Controllers
         private readonly IProductCategoryService _productCategoryService;
         private readonly INewService _newService;
 
-        public HomeController(IMapper mapper,ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, INewService newService, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
+        public HomeController(IMapper mapper, ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, INewService newService, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
         {
             _logger = logger;
             _localizer = localizer;
@@ -40,8 +41,27 @@ namespace WebSite.Controllers
         {
             var currentCulture = CultureInfo.CurrentCulture.Name;
 
-            var entity = _productService.GetLastLots(3);
+            var entity = _productService.GetAll();
             var products = _mapper.Map<List<ProductViewModel>>(entity);
+            var productsTelek = new List<ProductViewModel>();
+            var productsKomp = new List<ProductViewModel>();
+            var productsBit = new List<ProductViewModel>();
+            foreach (var product in products)
+            {
+                var productParentCategory = GetParentCategory(product.Category);
+                if (productParentCategory.Name == "Компьютерная техника")
+                {
+                    productsKomp.Add(product);
+                }
+                else if (productParentCategory.Name == "Телевизоры и электроника")
+                {
+                    productsTelek.Add(product);
+                }
+                else if (productParentCategory.Name == "Бытовая техника")
+                {
+                    productsBit.Add(product);
+                }
+            }
 
 
             var entityCategories = _productCategoryService.GetAll();
@@ -49,8 +69,19 @@ namespace WebSite.Controllers
 
             var entityNews = await _newService.GetAll();
             var news = _mapper.Map<List<NewViewModel>>(entityNews).OrderByDescending(_ => _.Created).Take(3).ToList();
-            
-            return View(new HomeViewModel { Products = products , ProductCategory = categories, News = news});
+
+            return View(new HomeViewModel { Products = products, ProductCategory = categories, News = news , ProductsTelek = productsTelek, ProductsBit = productsBit, ProductsKomp = productsKomp});
+        }
+
+        public async Task<IActionResult> IndexOtbor(int categoryId)
+        {
+            var currentCulture = CultureInfo.CurrentCulture.Name;
+
+            var entity = _productService.GetByIdFromCategory(categoryId);
+            var products = _mapper.Map<List<ProductViewModel>>(entity);
+
+
+            return View(products);
         }
 
         public IActionResult Privacy()
@@ -74,6 +105,15 @@ namespace WebSite.Controllers
             );
 
             return LocalRedirect(returnUrl);
+        }
+
+        ProductCategory GetParentCategory(ProductCategory category)
+        {
+            ProductCategory outCategory = category;
+            if (category?.ParentCategory != null)
+                outCategory = GetParentCategory(category.ParentCategory);
+
+            return outCategory;
         }
 
     }

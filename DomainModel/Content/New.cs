@@ -17,6 +17,6 @@ namespace DomainModel.Content
         public string Context { get; set; }
 
         public int? PhotoId { get; set; }
-        public Photo Photo { get; set; }
+        public virtual Photo Photo { get; set; }
     }
 }

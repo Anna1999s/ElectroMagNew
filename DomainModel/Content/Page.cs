@@ -23,22 +23,22 @@ namespace DomainModel.Content
         public string StringKey { get; set; }
 
         public int? NameId { get; set; }
-        public LocalizationSet Name { get; set; }
+        public virtual LocalizationSet Name { get; set; }
 
         public int? ContentId { get; set; }
-        public LocalizationSet Content { get; set; }
+        public virtual LocalizationSet Content { get; set; }
 
         public bool IsSection { get; set; }
 
         public int? MetaTitleId { get; set; }
-        public LocalizationSet MetaTitle { get; set; }
+        public virtual LocalizationSet MetaTitle { get; set; }
 
         public int? MetaKeywordsId { get; set; }
-        public LocalizationSet MetaKeywords { get; set; }
+        public virtual LocalizationSet MetaKeywords { get; set; }
 
         public int? MetaDescriptionId { get; set; }
-        public LocalizationSet MetaDescription { get; set; }
+        public virtual LocalizationSet MetaDescription { get; set; }
 
-        public IList<MenuItem> MenuItems { get; set; }
+        public virtual IList<MenuItem> MenuItems { get; set; }
     }
 }

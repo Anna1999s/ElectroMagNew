@@ -10,7 +10,9 @@ namespace Interfaces.Content
     public interface IProductService
     {
         List<Product> GetLastLots(int count );
+        List<Product> GetAll();
         Task<Product> Add(Product entity);
         Product GetById(int id);
+        List<Product> GetByIdFromCategory(int categoryId);
     }
 }
