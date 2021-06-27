@@ -1,8 +1,5 @@
-﻿@model IEnumerable<DomainModel.Content.BasketItem>
+﻿@model DomainModel.Content.Order
 
-@{
-    decimal subtotal = 0;
-}
 <!-- cart-main-area start -->
 <div class="cart-main-area ptb--120 bg__white">
     <div class="container">
@@ -18,32 +15,26 @@
                                     <th class="product-price">Цена</th>
                                     <th class="product-quantity">Количество</th>
                                     <th class="product-subtotal">Итого</th>
-                                    <th class="product-remove">Удалить</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    subtotal = subtotal + item.Product.Price;
-                                    
+                                @foreach (var item in Model.OrderProducts)
+                                {                                 
                                     <tr>
                                         <td class="product-thumbnail"><a asp-controller="Product" asp-action="Details" asp-route-Id="@item.Product.Id"><img src="@item.Product.Photos.FirstOrDefault()?.Path" alt="product img" /></a></td>
                                         <td class="product-name"><a asp-controller="Product" asp-action="Details" asp-route-Id="@item.Product.Id">@item.Product.Name</a></td>
                                         <td class="product-price"><span class="amount">@item.Product.Price руб.</span></td>
-                                        <td class="product-quantity"><input type="number" value="@item.Count" /></td>
+                                        <td class="product-quantity" style="font-size: 16px;">@item.Count</td>
                                         <td class="product-subtotal">@(item.Product.Price * item.Count) руб.</td>
-                                        <td class="product-remove"><a href="#">X</a></td>
+                                        
                                     </tr>
                                 }
-
                             </tbody>
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-md-8 col-sm-7 col-xs-12">
-                            <div class="buttons-cart">
-                                <a asp-action="Index" asp-controller="Home">Продолжить покупки</a>
-                            </div>
+                        <div class="col-md-8 col-sm-7 col-xs-12">                           
                         </div>
                         <div class="col-md-4 col-sm-5 col-xs-12">
                             <div class="cart_totals">
@@ -51,34 +42,24 @@
                                 <table>
                                     <tbody>
                                         <tr class="cart-subtotal">
-                                            <th>Итоговая стоимость</th>
-                                            <td><span class="amount">@subtotal руб.</span></td>
+                                            <th>Итоговая стоимость:</th>
+                                            <td><span class="amount">@Model.OrderPrice руб.</span></td>
                                         </tr>
                                         <tr class="shipping">
-                                            <th>Доставка</th>
+                                            <th>Доставка:</th>
                                             <td>
                                                 <ul id="shipping_method">
-                                                    <li>
-                                                        <input type="radio" value="true" />
+                                                    <li>                                                                                                               
                                                         <label>
-                                                           Бесплатная доставка
+                                                            Бесплатная доставка
                                                         </label>
                                                     </li>
                                                     <li></li>
-                                                </ul>                                               
+                                                </ul>
                                             </td>
-                                        </tr>
-                                        <tr class="order-total">
-                                            <th>Итого</th>
-                                            <td>
-                                                <strong><span class="amount">@subtotal руб.</span></strong>
-                                            </td>
-                                        </tr>
+                                        </tr>                                       
                                     </tbody>
                                 </table>
-                                <div class="wc-proceed-to-checkout">
-                                    <a asp-action="AddToOrder" asp-controller="Order" >Перейти к оформлению заказа</a>
-                                </div>
                             </div>
                         </div>
                     </div>

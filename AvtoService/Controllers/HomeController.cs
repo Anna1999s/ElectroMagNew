@@ -15,6 +15,7 @@ using WebSite.Models.Content;
 using System.Linq;
 using System.Threading.Tasks;
 using DomainModel.Content;
+using Services;
 
 namespace WebSite.Controllers
 {
@@ -26,8 +27,8 @@ namespace WebSite.Controllers
         private readonly IProductService _productService;
         private readonly IProductCategoryService _productCategoryService;
         private readonly INewService _newService;
-
-        public HomeController(IMapper mapper, ILogger<HomeController> logger, IStringLocalizer<HomeController> localizer, INewService newService, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
+        private readonly ApplicationDbContext _context;
+        public HomeController(IMapper mapper, ILogger<HomeController> logger, ApplicationDbContext context, IStringLocalizer<HomeController> localizer, INewService newService, ILocalizedPageService localizedPageRepository, IProductService productService, IProductCategoryService productCategoryService) : base(mapper)
         {
             _logger = logger;
             _localizer = localizer;
@@ -35,8 +36,20 @@ namespace WebSite.Controllers
             _productService = productService;
             _productCategoryService = productCategoryService;
             _newService = newService;
+            _context = context;
         }
+        public ActionResult AutocompleteSearch(string term)
+        {
+            var a_suppliers = _context.Products.Where(_ => _.Name.Contains(term)).Take(10).ToList().Select(
+                a => new
+                {
+                    value = $"{a.Name}",
+                    id = a.Id
+                }
+            ).Distinct();
 
+            return Json(a_suppliers);
+        }
         public async Task<IActionResult> Index()
         {
             var currentCulture = CultureInfo.CurrentCulture.Name;
@@ -70,18 +83,30 @@ namespace WebSite.Controllers
             var entityNews = await _newService.GetAll();
             var news = _mapper.Map<List<NewViewModel>>(entityNews).OrderByDescending(_ => _.Created).Take(3).ToList();
 
-            return View(new HomeViewModel { Products = products, ProductCategory = categories, News = news , ProductsTelek = productsTelek, ProductsBit = productsBit, ProductsKomp = productsKomp});
+            return View(new HomeViewModel { Products = products, ProductCategory = categories, News = news, ProductsTelek = productsTelek, ProductsBit = productsBit, ProductsKomp = productsKomp });
         }
 
-        public async Task<IActionResult> IndexOtbor(int categoryId)
+        public async Task<IActionResult> IndexOtbor(int? categoryId, string searchHere, int? searchHereId, decimal? priceMax, decimal? priceMin)
         {
-            var currentCulture = CultureInfo.CurrentCulture.Name;
 
-            var entity = _productService.GetByIdFromCategory(categoryId);
-            var products = _mapper.Map<List<ProductViewModel>>(entity);
+            var products = _productService.GetAll();
+            if (priceMax.HasValue && priceMin.HasValue)
+            {
+                products = products.Where(_ => _.Price >= priceMin.Value && _.Price <= priceMax.Value).ToList();
+            }
 
+            if (categoryId.HasValue)
+            {
+                products = products.Where(_ => _.CategoryId == categoryId.Value).ToList();
+            }
 
-            return View(products);
+            if (searchHereId.HasValue)
+            {
+                categoryId = _productService.GetById(searchHereId.Value)?.CategoryId;
+                products = products.Where(_ => _.Id == searchHereId.Value || _.CategoryId == categoryId.Value).ToList();
+            }
+
+            return View(_mapper.Map<List<ProductViewModel>>(products));
         }
 
         public IActionResult Privacy()

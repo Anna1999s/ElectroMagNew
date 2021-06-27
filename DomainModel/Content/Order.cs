@@ -10,7 +10,7 @@ namespace DomainModel.Content
     public class Order
     {
         public int Id { get; set; }
-        public virtual IList<Product> Products { get; set; }
+        public virtual IList<OrderProduct> OrderProducts { get; set; }
 
         //клиент
         public string UserId { get; set; }
@@ -21,7 +21,7 @@ namespace DomainModel.Content
         public virtual Employee Employees { get; set; }
 
         public DateTime OrderDate { get; set; }
-        public double OrderPrice { get; set; }
+        public decimal OrderPrice { get; set; }
     }
 
 }

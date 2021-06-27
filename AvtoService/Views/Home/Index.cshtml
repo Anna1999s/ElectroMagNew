@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = Localizer["Home Page"];
 }
-
+<script src="/js/vendor/jquery-1.12.0.min.js"></script>
 <!-- Start Feature Product -->
 <section class="categories-slider-area bg__white">
     <div class="container">
@@ -181,7 +181,7 @@
                                                     <div class="product__hover__info">
                                                         <ul class="product__action">
                                                             <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
+                                                            <li><a title="Add TO Cart" class="add-to-cart-btn" prodId="@item.Id"><span class="ti-shopping-cart"></span></a></li>
                                                             <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
                                                         </ul>
                                                     </div>
@@ -793,7 +793,7 @@
                                                     <div class="product__hover__info">
                                                         <ul class="product__action">
                                                             <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
+                                                            <li><a title="Add TO Cart" class="add-to-cart-btn" prodId="@item.Id"><span class="ti-shopping-cart"></span></a></li>
                                                             <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
                                                         </ul>
                                                     </div>
@@ -1506,7 +1506,7 @@
                                                     <div class="product__hover__info">
                                                         <ul class="product__action">
                                                             <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
-                                                            <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
+                                                            <li><a title="Add TO Cart" class="add-to-cart-btn" prodId="@item.Id"><span class="ti-shopping-cart"></span></a></li>
                                                             <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
                                                         </ul>
                                                     </div>
@@ -2000,3 +2000,39 @@
     </div>
 </section>
 <!-- End Blog Area -->
+
+<script>
+    $(document).ready(function () {
+
+        $('.add-to-cart-btn').on("click", function (e) {
+            e.preventDefault();
+
+            var productId = $(this).attr("prodId");
+            var count = 1;
+
+            //var count = $(this).attr("Qwz");
+            console.log("count", count);
+            console.log("productId", productId);
+            addItemToCart(productId, count);
+        });
+        function addItemToCart(productId, count) {
+
+            var product = {
+                ProductId: productId,
+            }
+            console.log("product", product);
+            $.post("/Cart/AddToBasket",
+                {
+                    ProductId: productId,
+                    count: count
+                },
+                function (data) {
+                    console.log("data", data);
+
+
+                }
+            );
+        }
+    });
+
+</script>

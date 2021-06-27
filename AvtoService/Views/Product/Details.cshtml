@@ -1,8 +1,5 @@
 ﻿@model WebSite.Models.Content.ProductViewModel
-@*@{
-        ViewData["Title"] = "Details";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
+
 <!-- Google font -->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
@@ -26,72 +23,6 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <script src="/js/vendor/jquery-1.12.0.min.js"></script>
 
-@*<h1>Details</h1>
-
-    <div>
-        <h4>ProductViewModel</h4>
-        <hr />
-        <dl class="row">
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Id)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Id)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Price)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Status)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Guarantee)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Guarantee)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Count)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Count)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.CategoryId)
-            </dd>
-            <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.WarehouseId)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.WarehouseId)
-            </dd>
-        </dl>
-    </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
-    </div>*@
 
 <!-- SECTION -->
 <div class="section">
@@ -200,13 +131,13 @@
 
                     <ul class="product-btns">
                         <li><a href="#"><i class="fa fa-heart-o"></i> добавить в избранное</a></li>
-                        @*<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>*@
+                     
                     </ul>
 
                     <ul class="product-links">
                         <li>Категория:</li>
                         <li><a href="#">@Model.Category.Name</a></li>
-                        @*<li><a href="#">Accessories</a></li>*@
+                        
                     </ul>
 
                     <ul class="product-links">

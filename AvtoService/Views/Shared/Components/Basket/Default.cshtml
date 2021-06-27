@@ -1,10 +1,11 @@
-﻿@{double subtotal = 0; }
+﻿<script src="/js/vendor/jquery-1.12.0.min.js"></script>
+@{decimal subtotal = 0; }
 @if (Model != null)
 {
     @foreach (var item in Model as List<DomainModel.Content.BasketItem>)
     {
-        subtotal = subtotal + item.Product.Price;
-        <div class="shp__single__product">
+        subtotal = subtotal + item.Product.Price * item.Count;
+        <div id="product_@item.ProductId" class="shp__single__product">
             <div class="shp__pro__thumb">
                 <a href="#">
                     <img src="@item.Product.Photos.FirstOrDefault()?.Path" alt="product images">
@@ -13,10 +14,10 @@
             <div class="shp__pro__details">
                 <h2><a href="product-details.html">@item.Product.Name</a></h2>
                 <span class="quantity">Количество: @item.Count</span>
-                <span class="shp__price">$@(item.Count * item.Product.Price)</span>
+                <span class="shp__price">@(item.Count * item.Product.Price) руб.</span>
             </div>
             <div class="remove__btn">
-                <a href="#" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
+                <a class="delete-product-item" prodId="@item.ProductId" title="Remove this item"><i class="zmdi zmdi-close"></i></a>
             </div>
         </div>
 
@@ -24,5 +25,39 @@
 }
 <ul class="shoping__total">
     <li class="subtotal">Итого:</li>
-    <li class="total__price">@subtotal</li>
+    <li id="totalPrice" class="total__price">@subtotal руб.</li>
 </ul>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('.delete-product-item').on("click", function (e) {
+            e.preventDefault();
+
+            var productId = $(this).attr("prodId");
+            console.log("productId", productId);
+            deleteItemToCart(productId);
+        });
+        function deleteItemToCart(productId) {
+
+            var product = {
+                ProductId: productId,
+            }
+            console.log("product", product);
+            $.post("/Cart/Remove",
+                {
+                    id: productId
+                },
+                function (data) {
+                    console.log("data", data);
+
+                    $(`#product_${data.id}`).remove();
+                    $('#totalPrice').html(data.newPrice);
+
+                }
+            );
+        }
+    });
+
+</script>

@@ -16,9 +16,9 @@ namespace DomainModel.Content
         [Display(Name = "Описание")]
         public string Description { get; set; }
         [Display(Name = "Цена")]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         [Display(Name = "Старая цена")]
-        public double? OldPrice { get; set; }
+        public decimal? OldPrice { get; set; }
         [Display(Name = "Статус")]
         public bool Status { get; set; }
         [Display(Name = "Гарантия")]

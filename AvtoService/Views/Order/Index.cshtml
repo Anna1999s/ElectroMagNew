@@ -1,0 +1,39 @@
+﻿@model IEnumerable<DomainModel.Content.Order>
+
+<!-- cart-main-area start -->
+<h1 style=" display: flex; justify-content: center;">
+    История  ваших заказов
+</h1>
+<div class="cart-main-area ptb--120 bg__white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <form action="#">
+                    <div class="table-content table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="product-name">Дата заказа</th>                                   
+                                    <th class="product-price">Цена заказа</th>
+                                    <th class="product-remove"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="product-name"><span> @item.OrderDate</span></td>
+                                        <td class="product-price"><span class="amount">@item.OrderPrice руб.</span></td>
+                                        <td class="product-remove"><a asp-action="Details" asp-route-id="@item.Id">Подробно</a></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart-main-area end -->

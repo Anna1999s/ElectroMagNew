@@ -42,24 +42,38 @@ namespace WebSite.Controllers
         {
             var UserId = _userManager.GetUserId(User);
             var product = _productService.GetById(ProductId);
-            var korz = _memoryCache.Get(UserId) as List<BasketItem>;
-            if (korz != null)
+            var basket = _memoryCache.Get(UserId) as List<BasketItem>;
+            if (basket != null)
             {
-                var basketItem = korz.FirstOrDefault(_ => _.ProductId == ProductId);
+                var basketItem = basket.FirstOrDefault(_ => _.ProductId == ProductId);
                 if (basketItem != null)
                     basketItem.Count += count;
                 else
-                    korz.Add(new BasketItem { ProductId = ProductId, Count = count, Product = product  });
+                    basket.Add(new BasketItem { ProductId = ProductId, Count = count, Product = product });
 
-                _memoryCache.Set(UserId, korz);
+                _memoryCache.Set(UserId, basket);
             }
             else
             {
-                korz = new List<BasketItem> { new BasketItem { ProductId = ProductId, Count = count, Product = product } };
-                _memoryCache.Set(UserId, korz);
+                basket = new List<BasketItem> { new BasketItem { ProductId = ProductId, Count = count, Product = product } };
+                _memoryCache.Set(UserId, basket);
             }
 
-            return Json(korz);
+            return Json(basket);
+        }
+
+        public ActionResult Remove(int id)
+        {
+            var UserId = _userManager.GetUserId(User);
+
+            var basket = _memoryCache.Get(UserId) as List<BasketItem>;
+            if (basket != null)
+            {
+                basket = basket.Where(_ => _.ProductId != id).ToList();
+                _memoryCache.Set(UserId, basket);
+            }
+
+            return Json(new { Id = id, NewPrice = basket.Sum(_ => _.Product.Price * _.Count) });
         }
 
         public IActionResult DetailsCart(string userId)
