@@ -39,5 +39,7 @@ namespace DomainModel.Content
         [Display(Name = "Склад")]
         public virtual Warehouse Warehouse { get; set; }
         public virtual List<Photo> Photos { get; set; } //= new List<Photo>();
+        [Display(Name = "Бренд")]
+        public virtual Brand Brand { get; set; }
     }
 }

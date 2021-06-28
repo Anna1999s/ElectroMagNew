@@ -26,6 +26,7 @@ namespace Services
         public DbSet<New> News { get; set; }
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Brand> Brands { get; set; }
         #region Navigation
 
         public DbSet<Menu> Menus { get; set; }
