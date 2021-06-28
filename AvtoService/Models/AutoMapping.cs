@@ -27,6 +27,9 @@ namespace WebSite.Models
 
             CreateMap<New, NewViewModel>();
             CreateMap<NewViewModel, New>();
+
+            CreateMap<Brand, BrandViewModel>();
+            CreateMap<BrandViewModel, Brand>();
         }
     }
 }

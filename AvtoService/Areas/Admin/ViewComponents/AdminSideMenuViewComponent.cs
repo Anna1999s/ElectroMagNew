@@ -75,6 +75,16 @@ namespace WebSite.Areas.Admin.ViewComponents
                     },
                     Controller = "ProductCategories"
                 },
+                 new MenuItemViewModel
+                {
+                    Title = _localizer["Бренды"],
+                    Childs = new List<MenuItemViewModel>
+                    {
+                        new MenuItemViewModel {Title = _localizer["Add"], Controller = "Brands", Action = "Create"},
+                        new MenuItemViewModel {Title = _localizer["List"], Controller = "Brands", Action = "Index"}
+                    },
+                    Controller = "Brands"
+                },
                 new MenuItemViewModel
                 {
                     Title = _localizer["Склады"],

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebSite.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class BaseAdminController : Controller
     {

@@ -39,6 +39,13 @@ namespace WebSite.Models.Content
         public int? WarehouseId { get; set; }
         [Display(Name = "Склад")]
         public virtual Warehouse Warehouse { get; set; }
+
+        //бренд
+        [Display(Name = "Бренд")]
+        public int? BrandId { get; set; }
+        [Display(Name = "Бренд")]
+        public virtual Brand Brand { get; set; }
+
         public List<IFormFile> UploadedPhotos { get; set; }
         public List<PhotoViewModel> Photos { get; set; }
     }

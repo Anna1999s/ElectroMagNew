@@ -86,7 +86,7 @@ namespace WebSite.Controllers
             return View(new HomeViewModel { Products = products, ProductCategory = categories, News = news, ProductsTelek = productsTelek, ProductsBit = productsBit, ProductsKomp = productsKomp });
         }
 
-        public async Task<IActionResult> IndexOtbor(int? categoryId, string searchHere, int? searchHereId, decimal? priceMax, decimal? priceMin)
+        public async Task<IActionResult> IndexOtbor(int? categoryId, string searchHere, int? searchHereId, decimal? priceMax, decimal? priceMin, List<BrandViewModel> brands)
         {
             var products = new List<Product>();
 
@@ -109,8 +109,15 @@ namespace WebSite.Controllers
                 categoryId = _productService.GetById(searchHereId.Value)?.CategoryId;
                 products = products.Where(_ => _.Id == searchHereId.Value || _.CategoryId == categoryId.Value).ToList();
             }
-
-            return View(_mapper.Map<List<ProductViewModel>>(products));
+            var brandIds = brands.Where(_ => _.IsSelected).Select(_ => _.Id).ToList();
+            if(brandIds.Count > 0)
+            {
+                products = products.Where(_ => brandIds.Any(x=>_.BrandId == x)).ToList();
+            }
+            
+            var productsItems = _mapper.Map<List<ProductViewModel>>(products);
+            var brandsItems = _mapper.Map<List<BrandViewModel>>(_context.Brands.ToList());
+            return View(new ProductsViewModel { Items = productsItems , Brands = brandsItems });
         }
 
         public IActionResult Privacy()

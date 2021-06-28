@@ -98,11 +98,10 @@ namespace WebSite.Controllers
 
                 }
 
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddClaimAsync(user, new Claim("UserRole", "Admin"));
                     return RedirectToAction("Dashboard");
                 }
                 else if (result.IsLockedOut)

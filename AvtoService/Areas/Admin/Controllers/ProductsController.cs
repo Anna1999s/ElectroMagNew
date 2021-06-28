@@ -30,14 +30,12 @@ namespace WebSite.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Products.Include(p => p.Category).Include(p => p.Warehouse).Include(p =>p.Photos);
-            return View(await applicationDbContext.ToListAsync());
+            var products = await _context.Products.ToListAsync();
+            return View(products);
         }
 
-        // GET: Admin/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,17 +55,14 @@ namespace WebSite.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name");
             ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name");
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
             return View();
         }
 
-        // POST: Admin/Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( ProductViewModel model)
@@ -87,7 +82,7 @@ namespace WebSite.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Admin/Products/Edit/5
+        
         public async Task<IActionResult> Edit(int id)
         {  
             var entity = _productService.GetById(id);
@@ -101,12 +96,10 @@ namespace WebSite.Areas.Admin.Controllers
             var model = _mapper.Map<ProductViewModel>(entity);
             ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", entity.CategoryId);
             ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", entity.WarehouseId);
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", entity.BrandId);
             return View(model);
         }
 
-        // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProductViewModel model)
@@ -127,8 +120,8 @@ namespace WebSite.Areas.Admin.Controllers
                             product.Photos.Add(await _photoService.Add(photo, product.Id,
                                 _webHostEnvironment.WebRootPath));
                     
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    _context.Products.Update(product);
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -145,10 +138,10 @@ namespace WebSite.Areas.Admin.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", model.CategoryId);
             ViewData["WarehouseId"] = new SelectList(_context.Warehouses, "Id", "Name", model.WarehouseId);
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name", model.BrandId);
             return View(model);
         }
 
-        // GET: Admin/Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,9 +149,7 @@ namespace WebSite.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Warehouse)
+            var product = await _context.Products                
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -168,7 +159,6 @@ namespace WebSite.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

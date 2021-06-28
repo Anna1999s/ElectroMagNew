@@ -29,13 +29,13 @@ namespace Services.Content
         }
         public async Task<Product> Add(Product entity)
         {
-            await _dbContext.AddAsync(entity);
+            await _dbContext.Products.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
         }
         public Product GetById(int id)
         {
-            var result = _dbContext.Products.Where(_ => _.Id == id).Include(_ => _.Photos).Include(_ => _.Category).FirstOrDefault();
+            var result = _dbContext.Products.FirstOrDefault(_ => _.Id == id);
             return result;
         }
         public List<Product> GetByIdFromCategory(int categoryId)
