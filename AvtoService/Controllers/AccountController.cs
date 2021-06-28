@@ -120,7 +120,7 @@ namespace WebSite.Controllers
         [Authorize]
         public IActionResult Dashboard()
         {
-            return View();
+            return RedirectToAction("Index", "Order");
         }
         public async Task<IActionResult> Logout()
         {

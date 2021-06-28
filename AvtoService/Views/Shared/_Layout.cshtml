@@ -215,7 +215,7 @@
                                         @if (SignInManager.IsSignedIn(User))
                                         {
                                             <li style="position: relative; bottom: 1px; margin: 0;">
-                                                <a asp-area="" asp-page="/Account/Manage/Index"> @User.Identity.Name</a>
+                                                <a asp-action="Index" asp-controller="Order"> @User.Identity.Name</a>
                                             </li>
                                             <li style="position: relative; bottom: 1px; margin: 0; padding: 0;">
                                                 <a asp-controller="account" asp-action="Logout">Выйти</a>
@@ -340,7 +340,7 @@
                         @await Component.InvokeAsync("Basket", new { userId = userId })
                         <ul class="shopping__btn">
                             <li><a asp-action="DetailsCart" asp-controller="Cart" asp-route-userId="@userId">Корзина</a></li>
-                            <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
+                            <li class="shp__checkout"><a asp-action="Index" asp-controller="Order">История заказов</a></li>
                         </ul>
                     </div>
                 </div>

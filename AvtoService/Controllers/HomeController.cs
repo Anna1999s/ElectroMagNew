@@ -88,16 +88,20 @@ namespace WebSite.Controllers
 
         public async Task<IActionResult> IndexOtbor(int? categoryId, string searchHere, int? searchHereId, decimal? priceMax, decimal? priceMin)
         {
-
-            var products = _productService.GetAll();
-            if (priceMax.HasValue && priceMin.HasValue)
-            {
-                products = products.Where(_ => _.Price >= priceMin.Value && _.Price <= priceMax.Value).ToList();
-            }
+            var products = new List<Product>();
 
             if (categoryId.HasValue)
             {
-                products = products.Where(_ => _.CategoryId == categoryId.Value).ToList();
+                products = _productService.GetByIdFromCategory(categoryId.Value);
+            }
+            else
+            {
+                products = _productService.GetAll();
+            }
+
+            if (priceMax.HasValue && priceMin.HasValue)
+            {
+                products = products.Where(_ => _.Price >= priceMin.Value && _.Price <= priceMax.Value).ToList();
             }
 
             if (searchHereId.HasValue)
@@ -139,6 +143,11 @@ namespace WebSite.Controllers
                 outCategory = GetParentCategory(category.ParentCategory);
 
             return outCategory;
+        }
+
+        public JsonResult GetPrice()
+        {
+            return Json(new { MinPrice = _context.Products.Min(_ => _.Price), MaxPrice = _context.Products.Max(_ => _.Price) });
         }
 
     }

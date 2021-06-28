@@ -127,8 +127,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <input type="submit" value="Найти"/>
+                            <div class="aside">
+                                <input type="submit" value="Найти" style="background-color: #D10024; border-color: #D10024; color: #FFF; font-weight: 500; cursor: default; width: 221px; border: 0; /* width: 87px; */ height: 41px;"/>
                             </div>
                         </form>
                         
@@ -323,3 +323,14 @@
 </html>
 
 
+<script>
+    $(document).ready(function () {
+        $.get("/Home/GetPrice",
+            function (data) {
+                console.log("dataMax", data);
+                $("#priceMax").val(data.maxPrice);
+                $("#priceMin").val(data.minPrice);
+            }
+        );      
+    });
+</script>

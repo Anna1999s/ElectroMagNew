@@ -396,18 +396,8 @@
             var product = {
                 ProductId: productId,
             }
-         console.log("product", product);
+        console.log("product", product);
 
-            @*$.post({
-              type: "Get",
-              url: '@Url.Action("AddToBasket", "Cart")',
-              data: product,
-              async: false,
-                success: function (data) {
-                    console.log("data", data);
-                //updateCart();
-              }
-            });*@
         $.post("/Cart/AddToBasket",
             {
                 ProductId: productId,
@@ -421,16 +411,6 @@
         );
     }
 
-          @*function updateCart() {
-            $.ajax({
-              type: "Get",
-              url: '@Url.Action("BasketHeader", "Cart")',
-              async: false,
-              success: function (data) {
-                $('.mini-cart').html(data);
-              }
-            });
-          }*@
     });
 
 </script>
