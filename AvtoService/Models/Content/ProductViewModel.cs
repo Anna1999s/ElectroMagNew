@@ -15,6 +15,8 @@ namespace WebSite.Models.Content
         public string Name { get; set; }
         [Display(Name = "Описание")]
         public string Description { get; set; }
+        [Display(Name = "Характеристики")]
+        public string Context { get; set; }
         [Display(Name = "Цена")]
         public double Price { get; set; }
         [Display(Name = "Старая цена")]
@@ -29,14 +31,14 @@ namespace WebSite.Models.Content
 
         //категория
         [Display(Name = "Категория")]
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
         [Display(Name = "Категория")]
         public virtual ProductCategory Category { get; set; }
 
 
         //склад
         [Display(Name = "Склад")]
-        public int? WarehouseId { get; set; }
+        public int WarehouseId { get; set; }
         [Display(Name = "Склад")]
         public virtual Warehouse Warehouse { get; set; }
 

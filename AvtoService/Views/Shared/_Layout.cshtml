@@ -75,83 +75,16 @@
                                 <ul class="main__menu">
                                     <li class="drop">
                                         <a asp-action="Index" asp-controller="Home">Главная</a>
-
                                     </li>
                                     <li class="drop">
-                                        <a href="portfolio-gutter-box-3.html">Контакты</a>
-                                        <ul class="dropdown">
-                                            <li><a href="portfolio-gutter-box-3.html">Boxed Gutter 3 Col</a></li>
-                                            <li><a href="portfolio-gutter-full-wide-4.html">Wide Gutter 4 Col </a></li>
-                                            <li><a href="portfolio-card-box-3.html">Card Gutter 3 Col </a></li>
-                                            <li><a href="portfolio-masonry-3.html">Masonry Box 3 Col </a></li>
-                                            <li><a href="portfolio-gutter-masonry-fullwide-4.html">Masonry Wide 4 Col </a></li>
-                                            <li><a href="portfolio-gutter-box-3-carousel.html">carousel Gutter 3 Col </a></li>
-                                            <li><a href="portfolio-justified-box-3.html">justified box 3 Col</a></li>
-                                            <li><a href="single-portfolio-gallery.html">Portfolio Details </a></li>
-                                        </ul>
+                                        <a asp-action="Contacts" asp-controller="Home">Контакты</a>                                        
                                     </li>
 
                                     <li class="drop">
-                                        <a href="shop.html">Вакансии</a>
-                                        <ul class="dropdown mega_dropdown">
-                                            <!-- Start Single Mega MEnu -->
-                                            <li>
-                                                <a class="mega__title" href="shop.html">shop layout</a>
-                                                <ul class="mega__item">
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                </ul>
-                                            </li>
-                                            <!-- End Single Mega MEnu -->
-                                            <!-- Start Single Mega MEnu -->
-                                            <li>
-                                                <a class="mega__title" href="shop.html">product details layout</a>
-                                                <ul class="mega__item">
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                    <li><a href="#">demo page title</a></li>
-                                                </ul>
-                                            </li>
-                                            <!-- End Single Mega MEnu -->
-                                            <!-- Start Single Mega MEnu -->
-                                            <li>
-                                                <ul class="mega__item">
-                                                    <li>
-                                                        <div class="mega-item-img">
-                                                            <a href="shop.html">
-                                                                <img src="/images/feature-img/3.png" alt="">
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <!-- End Single Mega MEnu -->
-                                        </ul>
+                                        <a href="">Вакансии</a>                                       
                                     </li>
                                     <li class="drop">
-                                        <a href="#">Помощь</a>
-                                        <ul class="dropdown">
-                                            <li><a href="about.html">about</a></li>
-                                            <li><a href="shop.html">shop</a></li>
-                                            <li><a href="shop-sidebar.html">shop sidebar</a></li>
-                                            <li><a href="product-details-sticky-right.html">product details</a></li>
-                                            <li><a href="cart.html">cart</a></li>
-                                            <li><a href="wishlist.html">wishlist</a></li>
-                                            <li><a href="checkout.html">checkout</a></li>
-                                            <li><a href="team.html">team</a></li>
-                                            <li><a href="login-register.html">login & register</a></li>
-                                        </ul>
+                                        <a href="#">Помощь</a>                                        
                                     </li>
 
                                 </ul>
@@ -422,7 +355,7 @@
                                     <h2 class="ft__title">Информация</h2>
                                     <ul class="footer-categories">
                                         <li><a href="about.html">О нас</a></li>
-                                        <li><a href="contact.html">Контакты</a></li>
+                                        <li><a asp-action="Contact" asp-controller="Home">Контакты</a></li>
                                         <li><a href="#">Вакансии</a></li>
                                         <li><a href="#">Помощь</a></li>
                                     </ul>
@@ -471,7 +404,7 @@
                                     <ul class="footer__menu">
                                         <li><a asp-action="Index" asp-controller="Home">Главная</a></li>
                                         <li><a href="shop.html">Product</a></li>
-                                        <li><a href="contact.html">Контакты</a></li>
+                                        <li><a asp-action="Contact" asp-controller="Home">Контакты</a></li>
                                     </ul>
                                 </div>
                             </div>

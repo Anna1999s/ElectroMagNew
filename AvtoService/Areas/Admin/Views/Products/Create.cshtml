@@ -9,8 +9,8 @@
 
 <h4>Product</h4>
 <hr />*@
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="display:flex; justify-content: center;">
+    <div class="col-md-10">
         <form asp-action="Create" method="post" id="add-lot-form" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -28,6 +28,9 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @Html.EditorFor(_ => _.Context, "WysiwygTextarea")
+            </div>
+            <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
@@ -42,11 +45,11 @@
                 <input asp-for="Count" class="form-control" />
                 <span asp-validation-for="Count" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            @*<div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Status" /> @Html.DisplayNameFor(model => model.Status)
                 </label>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Guarantee" class="control-label"></label>
                 <input asp-for="Guarantee" class="form-control" />
@@ -55,13 +58,13 @@
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId">
-                    <option>Выберите категорию</option>
+                    <option value="">Выберите категорию</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="BrandId" class="control-label"></label>
                 <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandId">
-                    <option>Выберите бренд</option>
+                    <option value="">Выберите бренд</option>
                 </select>
             </div>
             <div class="form-group">

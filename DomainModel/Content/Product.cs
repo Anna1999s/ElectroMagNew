@@ -15,6 +15,8 @@ namespace DomainModel.Content
         public string Name { get; set; }
         [Display(Name = "Описание")]
         public string Description { get; set; }
+        [Display(Name = "Характеристики")]
+        public string Context { get; set; }
         [Display(Name = "Цена")]
         public decimal Price { get; set; }
         [Display(Name = "Старая цена")]

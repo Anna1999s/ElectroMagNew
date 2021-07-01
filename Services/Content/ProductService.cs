@@ -24,7 +24,7 @@ namespace Services.Content
         }
         public List<Product> GetAll()
         {
-            var productList = _dbContext.Products.OrderByDescending(_ => _.Created).ToList();
+            var productList = _dbContext.Products.Include(_=>_.Photos).OrderByDescending(_ => _.Created).ToList();
             return productList;
         }
         public async Task<Product> Add(Product entity)
@@ -35,7 +35,7 @@ namespace Services.Content
         }
         public Product GetById(int id)
         {
-            var result = _dbContext.Products.FirstOrDefault(_ => _.Id == id);
+            var result = _dbContext.Products.Include(_=>_.Photos).FirstOrDefault(_ => _.Id == id);
             return result;
         }
         public List<Product> GetByIdFromCategory(int categoryId)

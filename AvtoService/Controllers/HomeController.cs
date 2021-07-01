@@ -83,7 +83,7 @@ namespace WebSite.Controllers
             var entityNews = await _newService.GetAll();
             var news = _mapper.Map<List<NewViewModel>>(entityNews).OrderByDescending(_ => _.Created).Take(3).ToList();
 
-            return View(new HomeViewModel { Products = products, ProductCategory = categories, News = news, ProductsTelek = productsTelek, ProductsBit = productsBit, ProductsKomp = productsKomp });
+            return View(new HomeViewModel { Products = products, ProductCategory = categories, News = news, ProductsTelek = productsTelek, ProductsBit = productsBit.Take(3).ToList(), ProductsKomp = productsKomp });
         }
 
         public async Task<IActionResult> IndexOtbor(int? categoryId, string searchHere, int? searchHereId, decimal? priceMax, decimal? priceMin, List<BrandViewModel> brands)
@@ -121,6 +121,10 @@ namespace WebSite.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Contacts()
         {
             return View();
         }

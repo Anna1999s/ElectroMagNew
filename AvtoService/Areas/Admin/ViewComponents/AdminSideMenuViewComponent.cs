@@ -33,9 +33,12 @@ namespace WebSite.Areas.Admin.ViewComponents
             {
                 new MenuItemViewModel
                 {
-                    Title = _localizer["Main"],
-                    //Title = "Главная",
-                    Controller = "Home"
+                    Title = _localizer["Заказы"],
+                    Childs = new List<MenuItemViewModel>
+                    {
+                        new MenuItemViewModel {Title = _localizer["List"], Controller = "Order", Action = "Index"}
+                    },
+                    Controller = "Order"
                 },
                 new MenuItemViewModel
                 {

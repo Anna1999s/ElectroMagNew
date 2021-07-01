@@ -1040,7 +1040,7 @@ textarea.input {
   position: relative;
   border: 2px solid transparent;
   height: 40px;
-  padding: 0 30px;
+  padding: 9px 30px;
   background-color: #ef233c;
   color: #FFF;
   text-transform: uppercase;
@@ -1066,7 +1066,7 @@ textarea.input {
   background-color: #FFF;
   color: #D10024;
   border-color: #D10024;
-  padding: 0px 30px 0px 50px;
+  padding: 9px 30px 9px 50px;
 }
 
 .product .add-to-cart .add-to-cart-btn:hover>i {
@@ -1534,7 +1534,7 @@ textarea.input {
   position: relative;
   border: 2px solid transparent;
   height: 40px;
-  padding: 0 30px;
+  padding: 9px 30px;
   background-color: #ef233c;
   color: #FFF;
   text-transform: uppercase;
@@ -1560,7 +1560,7 @@ textarea.input {
   background-color: #FFF;
   color: #D10024;
   border-color: #D10024;
-  padding: 0px 30px 0px 50px;
+  padding: 9px 30px 9px 50px;
 }
 
 .product-details .add-to-cart .add-to-cart-btn:hover>i {
